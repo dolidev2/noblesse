@@ -1,0 +1,42 @@
+<?php 
+
+	include_once '../model/User.class.php';
+
+	if (isset($_POST['username']) AND isset($_POST['password'])) 
+	{
+		$username = strip_tags(htmlspecialchars(trim($_POST['username'])));
+		$password = $_POST['password'];
+
+		$confirm = User::login($username, $password);
+
+		if ($confirm != 'NO') 
+		{
+			session_start();
+			$_SESSION['id'] = $confirm[0]->id_user;
+			$_SESSION['username'] = $confirm[0]->username;
+			$_SESSION['fonction'] = $confirm[0]->fonction;
+			$_SESSION['nom'] = $confirm[0]->nom_user;
+			$_SESSION['prenom'] = $confirm[0]->prenom_user;
+
+			echo '
+    		    <script language="javascript">
+					window.location.href = "view/index.php";
+				</script>';
+		}
+		else
+		{
+			echo '
+    		    <script language="javascript">
+					swal("Erreur!", "Utilisateur ou mot de passe Incorrects !", "error");
+				</script>';
+		}
+	}
+	else
+	{
+		echo '
+		     <script type="text/javascript">
+		         swal("Erreur!", "Champs vides !", "error");
+		    </script>';		    
+	}
+
+?>
