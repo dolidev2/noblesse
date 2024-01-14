@@ -7,6 +7,13 @@ echo "Deployment started ..."
 cd /var/www/html/noblesse
 git pull
 
+# allow composer for root
+export COMPOSER_ALLOW_SUPERUSER=1;
+
+# Install composer dependencies
+composer install --no-dev --optimize-autoloader --no-interaction
+# composer update --lock
+
 echo "New changes copied to server !"
 
 echo "Deployment Finished!"
