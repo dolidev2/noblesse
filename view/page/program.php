@@ -5,6 +5,8 @@ include_once'../model/Eleve.class.php';
 include_once'../model/Programation.class.php';
 
 $exam = Examen::afficherOne($_GET['id_examen']);
+$reds = Eleve::afficherCours();
+$elev = Eleve::afficherCoursExpire($reds);
 ?>
 <div class="col col-lg-12">
     <div class="panel-body" style="overflow: scroll;height: 700px;">
@@ -76,11 +78,11 @@ $exam = Examen::afficherOne($_GET['id_examen']);
                     <td align="center"><?=$eleve->nom_agence ; ?></td>
                     <td>
                         <!-- Modal must dynam and script -->
-                        <?php if ($_SESSION['fonction'] == 'administrateur') {  ?>
+<!--                        --><?php //if ($_SESSION['fonction'] == 'administrateur') {  ?>
                             <button title="Supprimer" type="button" class="btn btn-danger" data-toggle="modal" data-target="<?='#mod'.$eleve->id_eleve;?>">
                                 <span class="fa fa-trash"></span>
                             </button>
-                        <?php } ?>
+<!--                        --><?php //} ?>
 
                         <!-- Modal -->
                         <div class="modal fade" id="<?='mod'.$eleve->id_eleve;?>" tabindex="-1" role="dialog"  aria-hidden="true">
@@ -198,7 +200,7 @@ $exam = Examen::afficherOne($_GET['id_examen']);
                             <tr>
                                 <th>Nom </th>
                                 <th>Prénoms </th>
-                                <th>Date  de Naissance</th>
+                                <th>Date de Naissance</th>
                                 <th>Lieu de Naissance</th>
                                 <th>Catégorie</th>
                                 <th>Agence</th>
@@ -206,6 +208,21 @@ $exam = Examen::afficherOne($_GET['id_examen']);
                             </tr>
                             </thead>
                             <tbody>
+                            <?php
+                                foreach ($elev as $ev){
+                                    ?>
+                                    <tr>
+                                        <td><?= $ev['nom'] ?></td>
+                                        <td><?= $ev['prenom'] ?></td>
+                                        <td><?= date('d/m/Y',strtotime($ev['dob'])) ?></td>
+                                        <td><?= $ev['pob'] ?></td>
+                                        <td><?= $ev['categorie'] ?></td>
+                                        <td><?= $ev['agence'] ?></td>
+                                        <td><input type="checkbox" class="form-group check"	id="<?= $ev['id_eleve'] ?>"></td>
+                                    </tr>
+                                    <?php
+                                }
+                            ?>
                           
                             </tbody>
                         </table>
@@ -235,22 +252,8 @@ $exam = Examen::afficherOne($_GET['id_examen']);
 
         var dataTables = $('#tables-examen').DataTable({
             "responsive":true,
-            "deferRender":true,
             "paging":true,
-            "processing":true,
-            "serverSide":true,
-            "order": [],
-            "info":true,
-            "ajax":{
-                url:"../model/ajax_data/examen/tableEleve.php",
-                type:"POST"
-                },
-            "columnDefs":[
-                {
-                    "targets":'_all',
-                    "orderable":true,
-                    },
-                ], 
+
         });
 
 

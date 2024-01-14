@@ -90,7 +90,7 @@
 
   	$('#formulaire').submit( function()
 		{
-			  var username = $('#username').val();
+			var username = $('#username').val();
   			var password = $('#password').val();
 
 			$.post('control/login.php', {username:username, password:password}, function(response)

@@ -138,7 +138,7 @@ $elev = Eleve::afficherCoursExpire($reds);
                                             Liste des examens
                                         </div>
                                         <div class="panel-body">
-                                            <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example1">
+                                            <table width="100%" class="table table-striped table-bordered table-hover" id="table-exam-code">
                                                 <thead>
                                                 <tr>
                                                     <th>N°</th>
@@ -256,7 +256,7 @@ $elev = Eleve::afficherCoursExpire($reds);
                                                 Liste des examens
                                             </div>
                                             <div class="panel-body">
-                                                <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example1">
+                                                <table width="100%" class="table table-striped table-bordered table-hover" id="table-exam-pl-<?= $i?>">
                                                     <thead>
                                                     <tr>
                                                         <th>N°</th>
@@ -371,7 +371,7 @@ $elev = Eleve::afficherCoursExpire($reds);
                                               Liste des examens
                                             </div>
                                             <div class="panel-body">
-                                                <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example1">
+                                                <table width="100%" class="table table-striped table-bordered table-hover" id="table-exam-pl-<?= $i?>">
                                                     <thead>
                                                     <tr>
                                                         <th>N°</th>
@@ -508,6 +508,25 @@ $elev = Eleve::afficherCoursExpire($reds);
                                     </tr>
                                 </thead>
                                 <tbody>
+                                <?php
+                                    foreach ($elev as $ev){
+                                        ?>
+                                        <tr>
+                                            <td><?= $ev['nom'] ?></td>
+                                            <td><?= $ev['prenom'] ?></td>
+                                            <td><?= date('d/m/Y',strtotime($ev['dob'])) ?></td>
+                                            <td><?= $ev['pob'] ?></td>
+                                            <td><?= $ev['categorie'] ?></td>
+                                            <td><?= $ev['agence'] ?></td>
+                                            <td><input type="checkbox" class="form-group check"	id="<?= $ev['id_eleve'] ?>"></td>
+                                            <td>
+                                                <button title="Modifier" type="button" name="update" id="<?= $ev['id_eleve'] ?>" class="btn btn-primary btn-sm detail_eleve "><i class="glyphicon glyphicon-pencil"></i></button>
+                                            </td>
+                                        </tr>
+                                <?php
+                                    }
+
+                                ?>
                                                                  
                                 </tbody>
                             </table>   
@@ -584,7 +603,7 @@ $elev = Eleve::afficherCoursExpire($reds);
                                             Liste des examens
                                         </div>
                                         <div class="panel-body">
-                                            <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example1">
+                                            <table width="100%" class="table table-striped table-bordered table-hover" id="table-exam-codes">
                                                 <thead>
                                                 <tr>
                                                     <th>N°</th>
@@ -640,7 +659,7 @@ $elev = Eleve::afficherCoursExpire($reds);
                                                     Liste des examens
                                                 </div>
                                                 <div class="panel-body">
-                                                    <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example1">
+                                                    <table width="100%" class="table table-striped table-bordered table-hover" id="table-exam-pls-<?= $i?>">
                                                         <thead>
                                                         <tr>
                                                             <th>N°</th>
@@ -693,7 +712,7 @@ $elev = Eleve::afficherCoursExpire($reds);
                                                     Liste des examens
                                                 </div>
                                                 <div class="panel-body">
-                                                    <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example1">
+                                                    <table width="100%" class="table table-striped table-bordered table-hover" id="table-exam-pls-<?= $i?>">
                                                         <thead>
                                                         <tr>
                                                             <th>N°</th>
@@ -753,7 +772,7 @@ $elev = Eleve::afficherCoursExpire($reds);
                             Tous les Elève qui ont terminé leur examen                            
                         </div>
                         <div class="panel-body">
-                            <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example2">
+                            <table width="100%" class="table table-striped table-bordered table-hover" id="table-exam-ter">
                                 <thead>
                                     <tr>
                                         <th>N°</th>
@@ -812,30 +831,60 @@ $elev = Eleve::afficherCoursExpire($reds);
             </div>            
         </div>        
     </div>    
-</div> <div id="comment"></div>
+</div>
+<div id="comment"></div>
 
 <script type="text/javascript">
 
     $(document).ready(function () {
 
+
         var dataTables = $('#tables-examen').DataTable({
             "responsive":true,
-            "deferRender":true,
             "paging":true,
-            "processing":true,
-            "serverSide":true,
-            "order": [],
-            "info":true,
-            "ajax":{
-                url:"../model/ajax_data/examen/tableEleve.php",
-                type:"POST"
-                },
-            "columnDefs":[
-                {
-                    "targets":'_all',
-                    "orderable":true,
-                    },
-                ], 
+        });
+
+        var table_exam_codes = $('#table-exam-codes').DataTable({
+            "responsive":true,
+            "paging":true,
+        });
+
+        var table_exam_pl_0= $('#table-exam-pl-0').DataTable({
+            "responsive":true,
+            "paging":true,
+        });
+        var table_exam_pl_1= $('#table-exam-pl-1').DataTable({
+            "responsive":true,
+            "paging":true,
+        });
+        var table_exam_pl_2= $('#table-exam-pl-2').DataTable({
+            "responsive":true,
+            "paging":true,
+        });
+        var table_exam_pl_3= $('#table-exam-pl-3').DataTable({
+            "responsive":true,
+            "paging":true,
+        });
+
+        var table_exam_pls_0= $('#table-exam-pls-0').DataTable({
+            "responsive":true,
+            "paging":true,
+        });
+        var table_exam_pls_1= $('#table-exam-pls-1').DataTable({
+            "responsive":true,
+            "paging":true,
+        });
+        var table_exam_pls_2= $('#table-exam-pls-2').DataTable({
+            "responsive":true,
+            "paging":true,
+        });
+        var table_exam_pls_3= $('#table-exam-pls-3').DataTable({
+            "responsive":true,
+            "paging":true,
+        });
+        var table_exam_code = $('#table-exam-code').DataTable({
+            "responsive":true,
+            "paging":true,
         });
 
         $('#agence_select').change(function () {

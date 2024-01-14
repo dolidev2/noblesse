@@ -1,6 +1,7 @@
 <?php
 
 include_once "Model.class.php";
+include_once "Paiement.class.php";
 include_once "Reinscription.php";
 
 /**
@@ -130,7 +131,23 @@ include_once "Reinscription.php";
         $ins = $con->query('SELECT * FROM eleve e, agence a WHERE e.agence=a.id_agence AND statut=1 ORDER BY id_eleve ');
         $donne = $ins->fetchAll(PDO::FETCH_CLASS, 'Eleve');
 
-        return $donne;
+        $data = [];
+
+        foreach ($donne as $ad){
+            if($ad->solde != 0){
+                $paies = $con->query('SELECT sum(somme) as somme FROM paiement  WHERE eleve ="'.$ad->id_eleve.'"');
+                $paie = $paies->fetchAll(PDO::FETCH_CLASS, 'Paiement');
+
+                if($paie[0]->somme == $ad->solde){
+                    array_push($data,$ad);
+                }
+            }
+            else{
+                array_push($data,$ad);
+            }
+        }
+
+        return $data;
     }
 
     public static function afficherCoursAgence($agence)
@@ -139,7 +156,23 @@ include_once "Reinscription.php";
         $ins = $con->query('SELECT * FROM eleve e, agence a WHERE e.agence=a.id_agence AND statut=1  AND a.id_agence="'.$agence.'" ORDER BY id_eleve ');
         $donne = $ins->fetchAll(PDO::FETCH_CLASS, 'Eleve');
 
-        return $donne;
+        $data = [];
+
+        foreach ($donne as $ad){
+            if($ad->solde != 0){
+                $paies = $con->query('SELECT sum(somme) as somme FROM paiement  WHERE eleve ="'.$ad->id_eleve.'"');
+                $paie = $paies->fetchAll(PDO::FETCH_CLASS, 'Paiement');
+
+                if($paie[0]->somme == $ad->solde){
+                    array_push($data,$ad);
+                }
+            }
+            else{
+                array_push($data,$ad);
+            }
+        }
+
+        return $data;
     }
 
     public static function afficherStatutAgence($agence)
@@ -245,7 +278,6 @@ include_once "Reinscription.php";
                      );
                      array_push($data_eleve,$item);
                  }
-
              }
              else{
                  $eleve_register = Reinscription::afficheOne($eleve->id_eleve);
