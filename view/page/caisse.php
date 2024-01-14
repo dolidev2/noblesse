@@ -549,6 +549,7 @@
         var dataTable = $('#table_caisse').DataTable({
             "responsive":true,
             "paging":true,
+            "order":[[0.'desc']],
         });
     });
 

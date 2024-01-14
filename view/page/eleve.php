@@ -566,22 +566,7 @@ $elevR = Eleve::afficherCoursExpireReinscription($eleves);
 
         var dataTables = $('#tables-reinscrire').DataTable({
             "responsive":true,
-            "deferRender":true,
             "paging":true,
-            "processing":true,
-            "serverSide":true,
-            "order": [],
-            "info":true,
-            "ajax":{
-                url:"../model/ajax_data/eleve/tableEleveReinscrire.php",
-                type:"POST"
-                },
-            "columnDefs":[
-                {
-                    "targets":'_all',
-                    "orderable":true,
-                    },
-                ], 
         });
 
         $(document).on('click', '.inscription_eleve', function(){
