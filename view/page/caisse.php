@@ -1,6 +1,9 @@
-<?php include_once '../model/Caisse.class.php' ; ?>
-<?php include_once '../model/Versement.class.php' ; ?>
-<?php include_once '../model/Audit.class.php' ; ?>
+<?php include_once '../model/Caisse.class.php' ;
+ include_once '../model/Versement.class.php' ;
+ include_once '../model/Audit.class.php' ;
+
+ $caisses = Caisse::afficherAll();
+ ?>
 
 <div class="row">
     <div class="panel panel-default">
@@ -38,7 +41,75 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                                                    
+                                <?php
+                                    foreach ($caisses as $ev){
+                                        ?>
+                                        <tr>
+                                            <td><?= date('d/m/Y',strtotime($ev->date)) ?></td>
+                                            <td><?= $ev->desc_caisse ?></td>
+                                            <td><?php
+                                                if ($ev->type == 'sortie') {
+                                                    ?>
+                                                    <button class="btn btn-danger">Dépense</button>
+                                                    <?php
+                                                }
+                                                else
+                                                {
+                                                    ?>
+                                                    <button class="btn btn-success">Recette</button>
+                                                    <?php
+                                                }
+                                                ?>
+                                            </td>
+                                            <td><?= $ev->somme ?></td>
+                                            <td>
+                                            <?php
+                                                if ($_SESSION['fonction'] == 'administrateur') {
+                                            ?>
+                                                <a title="Modifier" class="btn btn-primary" href="index.php?page=up_caisse&id_caisse='.<?= $ev->id_caisse?>.'">
+                                                <span class="fa fa-pencil"></span>
+                                                </a>
+
+                                                <button title="Supprimer" type="button" class="btn btn-danger" data-toggle="modal" data-target="#mod'.<?= $ev->id_caisse?>].'">
+                                                <span class="fa fa-trash"></span>
+                                                </button>
+
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="#mod'.<?= $ev->id_caisse?>.'" tabindex="-1" role="dialog" aria-labelledby="#mod'.<?= $ev->id_caisse?>.'" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="#mod'.<?= $ev->id_caisse?>.'">
+                                                            </h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <form method="post" action="../control/del_caisse.php">
+                                                            <div class="modal-body">
+                                                                <input type="hidden" name="id_caisse" value="'.<?= $ev->id_caisse?>.'">
+                                                                <button class="btn btn-danger">
+                                                                    <h3>
+                                                                        Voulez vous vraiment supprimer ?
+                                                                    </h3>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">NON</button>
+                                                                <button type="submit" name="submit" class="btn btn-primary">OUI</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                                </div>
+                                                    <?php
+                                                }
+                                            ?>
+                                            </td>
+                                        </tr>
+                                        <?php
+                                    }
+                                ?>
                                 </tbody>
                             </table>                            
                         </div>
@@ -269,8 +340,6 @@
                                         </div>
                                     </div>
                                 </div>
-
-       
                             </div>
                         </div>
                     </div>
@@ -472,31 +541,14 @@
 </div>
 
 
-
+</div>
+<div id="comment"></div>
 <script type="text/javascript">
-
-
-
     $(document).ready(function () {
 
         var dataTable = $('#table_caisse').DataTable({
             "responsive":true,
-            "deferRender":true,
             "paging":true,
-            "processing":true,
-            "serverSide":true,
-            "order": [],
-            "info":true,
-            "ajax":{
-                url:"../model/ajax_data/caisse/tableData.php",
-                type:"POST"
-                },
-            "columnDefs":[
-                {
-                    "targets":'_all',
-                    "orderable":false,
-                    },
-                ],    
         });
     });
 

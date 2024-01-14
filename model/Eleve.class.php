@@ -178,7 +178,7 @@ include_once "Reinscription.php";
     public static function afficherStatutAgence($agence)
     {
         $con = parent::getPDO();
-        $ins = $con->query('SELECT * FROM eleve e, agence a WHERE e.agence=a.id_agence AND e.statut=0 AND a.id_agence="'.$agence.'" ORDER BY nom,prenom');
+        $ins = $con->query('SELECT * FROM eleve e, agence a, retrait r WHERE e.id_eleve = r.eleve and e.agence=a.id_agence AND a.id_agence="'.$agence.'" ORDER BY nom,prenom');
         $donne = $ins->fetchAll(PDO::FETCH_CLASS, 'Eleve');
 
         return $donne;
@@ -272,9 +272,11 @@ include_once "Reinscription.php";
                          'nom' => $eleve->nom,
                          'prenom' => $eleve->prenom,
                          'contact' => $eleve->contact,
+                         'dob' => $eleve->dob,
+                         'pob' => $eleve->pob,
                          'profession' => $eleve->profession,
                          'categorie' => $eleve->categorie,
-                         'agence' => $eleve->agence,
+                         'agence' => $eleve->nom_agence,
                      );
                      array_push($data_eleve,$item);
                  }
@@ -325,7 +327,7 @@ include_once "Reinscription.php";
     public static function afficherStatut()
     {
         $con = parent::getPDO();
-        $ins = $con->query('SELECT * FROM eleve WHERE statut=0 ORDER BY nom,prenom');
+        $ins = $con->query('SELECT * FROM eleve e, retrait r,agence a WHERE e.agence=a.id_agence and e.id_eleve=r.eleve ORDER BY nom,prenom');
         $donne = $ins->fetchAll(PDO::FETCH_CLASS, 'Eleve');
 
         return $donne;

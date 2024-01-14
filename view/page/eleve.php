@@ -18,8 +18,8 @@ if(isset($_GET['agence'])){
     $urlListeImpaye= '../public/pdf/paiementdom.php?ind=impaye&agence='.$_GET['agence'];
     $urlListePermis= '../public/pdf/elevedom.php?ind=permis&agence='.$_GET['agence'];
 }
-else
-{
+else{
+
     $eleves = Eleve::afficherCours(); $i=1;
     $elevePermis = Eleve::afficherStatut(); $i=1; 
     $depotUrl = "index.php?page=bordereau&date_depot=";
@@ -283,7 +283,7 @@ $elevR = Eleve::afficherCoursExpireReinscription($eleves);
                             </div>
                             <!-- End Modal Impression-->
 
-                            <table class="table table-striped table-bordered table-hover"  id="course_table">  
+                            <table class="table table-striped table-bordered table-hover" id="course_table">
                                 <thead>
                                     <tr>
                                         <th>Nom</th>
@@ -296,8 +296,34 @@ $elevR = Eleve::afficherCoursExpireReinscription($eleves);
                                         <th>Action</th>
                                     </tr>
                                 </thead>
+                                <tbody>
+                                <?php
+                                    foreach ($elev as $ev){
+                                        ?>
+                                        <tr>
+                                            <td><?= $ev['nom'] ?></td>
+                                            <td><?= $ev['prenom'] ?></td>
+                                            <td><?= $ev['matricule'] ?></td>
+                                            <td><?= $ev['profession'] ?></td>
+                                            <td><?= $ev['categorie'] ?></td>
+                                            <td><?= $ev['agence'] ?></td>
+                                            <td>
+                                                <input type="checkbox" class="form-group check"	id="<?= $ev['id_eleve'] ?>" >
+                                            </td>
+                                            <td>
+                                                <button title="Supprimer" type="button" name="delete" id="<?= $ev['id_eleve'] ?>" class="btn btn-danger btn-sm delete_eleve " ><i class="glyphicon glyphicon glyphicon-trash"></i></button>
+                                                <button title="Modifier" type="button" name="update" id="<?= $ev['id_eleve'] ?>" class="btn btn-primary btn-sm update_eleve "><i class="glyphicon glyphicon-pencil"></i></button>
+                                                <button type="button" title="Examen"  name="examen" id="'<?= $ev['id_eleve'] ?>" class="btn btn-success examen_eleve "><i class="glyphicon glyphicon-ok"></i></button>
+                                                <button type="button" title="Paiement"  name="paiement" id="<?= $ev['id_eleve'] ?>" class="btn btn-warning paiement_eleve "><i class="glyphicon glyphicon-th-large"></i></button>
+                                                <button type="button" title="Voir plus" name="voir_plus" id="<?= $ev['id_eleve'] ?>" class="btn btn-info detail_eleve "><i class="glyphicon glyphicon-eye-open"></i></button>
+                                            </td>
+                                        </tr>
+
+                                <?php
+                                    }
+                                ?>
+                                </tbody>
                             </table>
-                          
                         </div>
                     </div>
                 </div>
@@ -305,7 +331,7 @@ $elevR = Eleve::afficherCoursExpireReinscription($eleves);
                 <div class="tab-pane fade" id="listeP">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Les Elèves qui ont Obtenu le Permis Provisoir
+                            Les Elèves qui ont Obtenu le Permis Provisoire
                             <a href="../public/pdf/elevedom.php?ind=permis" target="_blank" class="btn btn-warning">Imprimer</a>
                         </div>
                         <div class="panel-body">
@@ -321,6 +347,29 @@ $elevR = Eleve::afficherCoursExpireReinscription($eleves);
                                         <th>Action</th>
                                     </tr>
                                 </thead>
+                                <tbody>
+                                <?php
+                                foreach ($elevePermis as $ev){
+                                    ?>
+                                    <tr>
+                                        <td><?= $ev->nom ?></td>
+                                        <td><?= $ev->prenom ?></td>
+                                        <td><?= date('d/m/Y',strtotime($ev->dob)) ?></td>
+                                        <td><?= $ev->pob ?></td>
+                                        <td><?= $ev->categorie ?></td>
+                                        <td><?= $ev->nom_agence ?></td>
+                                        <td>
+                                            <button title="Supprimer" type="button" name="delete" id="<?= $ev->id_eleve ?>" class="btn btn-danger btn-sm delete_eleve " ><i class="glyphicon glyphicon glyphicon-trash"></i></button>
+                                            <button title="Modifier" type="button" name="update" id="<?= $ev->id_eleve ?>" class="btn btn-primary btn-sm update_eleve "><i class="glyphicon glyphicon-pencil"></i></button>
+                                            <button type="button" title="Reinscrire"  name="examen" id="<?= $ev->id_eleve ?>" class="btn btn-success inscription_eleve "><i class="glyphicon glyphicon-ok"></i></button>
+                                            <button type="button" title="Paiement"  name="paiement" id="<?= $ev->id_eleve ?>" class="btn btn-warning paiement_eleve "><i class="glyphicon glyphicon-th-large"></i></button>
+                                            <button type="button" title="Voir plus" name="voir_plus" id="<?= $ev->id_eleve ?>" class="btn btn-info detail_eleve "><i class="glyphicon glyphicon-eye-open"></i></button>
+                                        </td>
+                                    </tr>
+                                <?php
+                                }
+                                ?>
+                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -333,7 +382,7 @@ $elevR = Eleve::afficherCoursExpireReinscription($eleves);
                             Liste des dépôts
                         </div>
                         <div class="panel-body">
-                            <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-depot">
+                            <table width="100%" class="table table-striped table-bordered table-hover" id="table-depot">
                                 <thead>
                                     <tr>
                                         <th>N°</th>
@@ -425,6 +474,29 @@ $elevR = Eleve::afficherCoursExpireReinscription($eleves);
                                 <th>Action</th>
                             </tr>
                             </thead>
+                            <tbody>
+                            <?php
+                                foreach ($elevR as $ev){
+                                    ?>
+                                    <tr>
+                                        <td><?= $ev['nom'] ?></td>
+                                        <td><?= $ev['prenom'] ?></td>
+                                        <td><?= date('d/m/Y',strtotime($ev['dob'])) ?></td>
+                                        <td><?= $ev['pob'] ?></td>
+                                        <td><?= $ev['categorie'] ?></td>
+                                        <td><?= $ev['agence'] ?></td>
+                                        <td>
+                                            <button title="Supprimer" type="button" name="delete" id="<?= $ev['id_eleve'] ?>" class="btn btn-danger btn-sm delete_eleve " ><i class="glyphicon glyphicon glyphicon-trash"></i></button>
+                                            <button title="Modifier" type="button" name="update" id="<?= $ev['id_eleve'] ?>" class="btn btn-primary btn-sm update_eleve "><i class="glyphicon glyphicon-pencil"></i></button>
+                                            <button type="button" title="Reinscrire"  name="examen" id="<?= $ev['id_eleve'] ?>" class="btn btn-success inscription_eleve "><i class="glyphicon glyphicon-ok"></i></button>
+                                            <button type="button" title="Paiement"  name="paiement" id="<?= $ev['id_eleve'] ?>" class="btn btn-warning paiement_eleve "><i class="glyphicon glyphicon-th-large"></i></button>
+                                            <button type="button" title="Voir plus" name="voir_plus" id="<?= $ev['id_eleve'] ?>" class="btn btn-info detail_eleve "><i class="glyphicon glyphicon-eye-open"></i></button>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                }
+                            ?>
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -478,42 +550,18 @@ $elevR = Eleve::afficherCoursExpireReinscription($eleves);
 
         var dataTable = $('#course_table').DataTable({
             "responsive":true,
-            "deferRender":true,
             "paging":true,
-            "processing":true,
-            "serverSide":true,
-            "order": [],
-            "info":true,
-            "ajax":{
-                url:"../model/ajax_data/eleve/tableEleveCours.php",
-                type:"POST"
-                },
-            "columnDefs":[
-                {
-                    "targets":'_all',
-                    "orderable":false,
-                    },
-                ],    
         });
 
         var dataTable_provisoire = $('#table_provisoire').DataTable({
             "responsive":true,
-            "deferRender":true,
             "paging":true,
-            "processing":true,
-            "serverSide":true,
-            "order": [],
-            "info":true,
-            "ajax":{
-                url:"../model/ajax_data/eleve/eleveProvisoire.php",
-                type:"POST"
-                },
-            "columnDefs":[
-                {
-                    "targets":'_all',
-                    "orderable":false,
-                    },
-                ],    
+        });
+
+        var table_depot = $('#table-depot').DataTable({
+            "responsive":true,
+            "paging":true,
+            order: [[1, 'desc']]
         });
 
         var dataTables = $('#tables-reinscrire').DataTable({
@@ -650,9 +698,7 @@ $elevR = Eleve::afficherCoursExpireReinscription($eleves);
             data.push({
                 id:id_eleve,
             });
-        
         });
-       
     });
 
 
