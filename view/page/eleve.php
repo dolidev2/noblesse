@@ -9,7 +9,7 @@ if(isset($_GET['agence'])){
     $ag = Agence::afficherAgenceOne($_GET['agence']); 
     $agenc = $ag[0]->nom_agence;
     $agenceId =$_GET['agence'];
-    $eleves = Eleve::afficherCoursAgence($_GET['agence']); $i=1;
+//    $eleves = Eleve::afficherCoursAgence($_GET['agence']); $i=1;
     $elevePermis = Eleve::afficherStatutAgence($_GET['agence']); $i=1; 
     $depotUrl = "index.php?page=bordereau&agence=".$_GET['agence']."&date_depot=";
     $urlListeSimple = '../public/pdf/elevedom.php?ind=cours&agence='.$_GET['agence'];
