@@ -18,7 +18,7 @@
      */
     public static $data = array(
             'DB_HOST'=> 'localhost',
-            'DB_NAME'=> 'noblesse',
+            'DB_NAME'=> '',
             'DB_USER'=> 'admin',
             'DB_PASSWORD'=>'Cravates123',
             'DB_PORT'=>'',
