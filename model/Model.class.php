@@ -19,8 +19,8 @@
     public static $data = array(
             'DB_HOST'=> 'localhost',
             'DB_NAME'=> 'noblesse',
-            'DB_USER'=> 'jean',
-            'DB_PASSWORD'=>'',
+            'DB_USER'=> 'admin',
+            'DB_PASSWORD'=>'Cravates123',
             'DB_PORT'=>'',
             'DB_PREFIX'=>'',
             'DB_DSN'=> 'mysql:host=localhost;dbname=noblesse'
