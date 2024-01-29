@@ -8,10 +8,10 @@ if(isset($_GET['agence']))
 {
     $ag = Agence::afficherAgenceOne($_GET['agence']); 
     $agenc = $ag[0]->nom_agence;
-    $reds = Eleve::afficherCoursAgence($_GET['agence']); 
+    $reds = Eleve::afficherCourAgence($_GET['agence']);
     $els = Eleve::afficherStatutAgence($_GET['agence']); 
 }else{
-    $reds = Eleve::afficherCours(); 
+    $reds = Eleve::afficherCour();
     $els = Eleve::afficherStatut(); 
 }
 $elev = Eleve::afficherCoursExpire($reds);

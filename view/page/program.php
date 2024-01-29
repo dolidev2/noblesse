@@ -5,7 +5,7 @@ include_once'../model/Eleve.class.php';
 include_once'../model/Programation.class.php';
 
 $exam = Examen::afficherOne($_GET['id_examen']);
-$reds = Eleve::afficherCours();
+$reds = Eleve::afficherCour();
 $elev = Eleve::afficherCoursExpire($reds);
 ?>
 <div class="col col-lg-12">

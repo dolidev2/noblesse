@@ -150,6 +150,31 @@ include_once "Reinscription.php";
         return $donne;
     }
 
+     public static function afficherCour()
+     {
+         $con = parent::getPDO();
+         $ins = $con->query('SELECT * FROM eleve e, agence a WHERE e.agence=a.id_agence AND statut=1 ORDER BY id_eleve DESC');
+         $donne = $ins->fetchAll(PDO::FETCH_CLASS, 'Eleve');
+
+        $data = [];
+
+        foreach ($donne as $ad){
+            if($ad->solde != 0){
+                $paies = $con->query('SELECT sum(somme) as somme FROM paiement  WHERE eleve ="'.$ad->id_eleve.'"');
+                $paie = $paies->fetchAll(PDO::FETCH_CLASS, 'Paiement');
+
+                if($paie[0]->somme == $ad->solde){
+                    array_push($data,$ad);
+                }
+            }
+            else{
+                array_push($data,$ad);
+            }
+        }
+
+         return $data;
+     }
+
     public static function afficherCoursAgence($agence)
     {
         $con = parent::getPDO();
@@ -174,6 +199,31 @@ include_once "Reinscription.php";
 
         return $donne;
     }
+
+     public static function afficherCourAgence($agence)
+     {
+         $con = parent::getPDO();
+         $ins = $con->query('SELECT * FROM eleve e, agence a WHERE e.agence=a.id_agence AND statut=1  AND a.id_agence="'.$agence.'" ORDER BY id_eleve DESC ');
+         $donne = $ins->fetchAll(PDO::FETCH_CLASS, 'Eleve');
+
+         $data = [];
+
+        foreach ($donne as $ad){
+            if($ad->solde != 0){
+                $paies = $con->query('SELECT sum(somme) as somme FROM paiement  WHERE eleve ="'.$ad->id_eleve.'"');
+                $paie = $paies->fetchAll(PDO::FETCH_CLASS, 'Paiement');
+
+                if($paie[0]->somme == $ad->solde){
+                    array_push($data,$ad);
+                }
+            }
+            else{
+                array_push($data,$ad);
+            }
+        }
+
+         return $data;
+     }
 
     public static function afficherStatutAgence($agence)
     {
