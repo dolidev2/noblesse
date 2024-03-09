@@ -42,19 +42,30 @@ include_once "Model.class.php";
     public static function register($data)
     {
         $con = parent::getPDO();
-        $ins = $con->prepare('INSERT INTO users VALUES(?,?,?,?,?,?)');
+        $ins = $con->prepare('INSERT INTO users VALUES(?,?,?,?,?,?,?)');
         $ins->execute(array(null, $data['nom_user'], $data['prenom_user'], 
-            $data['username'], $data['password'], $data['fonction']));
+            $data['username'], $data['password'], $data['fonction'], $data['agence']));
 
     }
 
-    public static function afficher()
+    public static function afficher($agence)
     {
         $con = parent::getPDO();        
-        $ins = $con->query('SELECT * FROM users');          
+        $ins = $con->query('SELECT * FROM users u, agence a 
+         WHERE u.agence=a.id_agence AND u.agence="'.$agence.'" ');
         $donne = $ins->fetchAll(PDO::FETCH_CLASS, 'User');
 
         return $donne;        
+    }
+
+    public static function afficherTout()
+    {
+        $con = parent::getPDO();
+        $ins = $con->query('SELECT * FROM users u, agence a 
+         WHERE u.agence=a.id_agence ');
+        $donne = $ins->fetchAll(PDO::FETCH_CLASS, 'User');
+
+        return $donne;
     }
 
     public static function afficherOne($id)
@@ -89,11 +100,5 @@ include_once "Model.class.php";
         
         $sup = $con->prepare('DELETE FROM users WHERE id_user=?');
         $sup->execute(array($id));
-        
-        
     }
-
-   
-
-
  }

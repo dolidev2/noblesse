@@ -21,11 +21,11 @@ include_once "Reinscription.php";
     {
         $image = '';
         $con = parent::getPDO();
-        $ins = $con->prepare('INSERT INTO eleve VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)');
+        $ins = $con->prepare('INSERT INTO eleve VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)');
         $ins->execute(array(null, $data['nom'], $data['prenom'], $data['contact'],
             $data['profession'], $data['adresse'], $data['dob'], $data['sexe'],
             $data['dor'],$data['pob'], $data['categorie'], $data['solde'], $data['forfait'],
-            $data['statut'],$data['recommandation'],$data['matricule'],$image,$data['agence'],$data['montant']));
+            $data['statut'],$data['recommandation'],$data['matricule'],$image,$data['agence'],$data['montant'],$data['frais']));
     }
 
     public static function get_total_all_records()
@@ -72,10 +72,10 @@ include_once "Reinscription.php";
 
 
     /*Afficher les 10 derniers Inscrits*/
-    public static function afficher10dernier()
+    public static function afficher10dernier($agence)
     {
         $con = parent::getPDO();
-        $ins = $con->query('SELECT * FROM eleve WHERE statut=1 ORDER BY dor DESC LIMIT 10');
+        $ins = $con->query('SELECT * FROM eleve WHERE statut=1 AND agence="'.$agence.'" ORDER BY dor DESC LIMIT 10');
         $donne = $ins->fetchAll(PDO::FETCH_CLASS, 'Eleve');
 
         return $donne;
@@ -406,10 +406,10 @@ include_once "Reinscription.php";
     }
 
      /*AFicher Accueil Nombre élève*/
-    public static function countAll()
+    public static function countAll($agence)
     {
         $con = parent::getPDO();
-        $ins = $con->query('SELECT COUNT(id_eleve) as nombre FROM eleve ');
+        $ins = $con->query('SELECT COUNT(id_eleve) as nombre FROM eleve WHERE agence="'.$agence.'" ');
         $donne = $ins->fetchAll(PDO::FETCH_CLASS, 'Eleve');
         return $donne;
     }
@@ -427,19 +427,19 @@ include_once "Reinscription.php";
      }
 
     /*Afficher Accueil Nombre élève*/
-    public static function countCours()
+    public static function countCours($agence)
     {
         $con = parent::getPDO();
-        $ins = $con->query('SELECT COUNT(id_eleve) as nombre FROM eleve WHERE statut=1 ');
+        $ins = $con->query('SELECT COUNT(id_eleve) as nombre FROM eleve WHERE statut=1 AND agence="'.$agence.'"');
         $donne = $ins->fetchAll(PDO::FETCH_CLASS, 'Eleve');
         return $donne;
     }   
 
     /*Afficher Accueil Nombre élève*/
-    public static function countPermi()
+    public static function countPermi($agence)
     {
         $con = parent::getPDO();
-        $ins = $con->query('SELECT COUNT(id_eleve) as nombre FROM eleve WHERE statut=0 ');
+        $ins = $con->query('SELECT COUNT(id_eleve) as nombre FROM eleve WHERE statut=0 AND agence="'.$agence.'"');
         $donne = $ins->fetchAll(PDO::FETCH_CLASS, 'Eleve');
         return $donne;
     }
@@ -581,7 +581,7 @@ include_once "Reinscription.php";
      public static function afficherImpayeAgence($agence)
      {
         $con = parent::getPDO();
-        $ins = $con->query('SELECT * FROM eleve e, agence a WHERE e.agence=a.id_agence AND a.id_agence="'.$agence.'" AND statut=1  AND visible = 1 AND id_eleve NOT IN (SELECT p.eleve FROM eleve e, paiement p WHERE e.id_eleve = p.eleve) ORDER BY nom,prenom');
+        $ins = $con->query('SELECT * FROM eleve e, agence a WHERE e.agence=a.id_agence AND a.id_agence="'.$agence.'" AND statut=1 AND id_eleve NOT IN (SELECT p.eleve FROM eleve e, paiement p WHERE e.id_eleve = p.eleve) ORDER BY nom,prenom');
         $donne = $ins->fetchAll(PDO::FETCH_CLASS, 'Eleve');
 
         return $donne;

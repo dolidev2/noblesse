@@ -24,15 +24,15 @@ include_once "Paiement.class.php";
     public static function registerRecette($data)
     {
         $con = parent::getPDO();
-        $ins = $con->prepare('INSERT INTO recette VALUES(?,?,?)');
-        $ins->execute(array(NULL,  $data['date'], $data['somme']));
+        $ins = $con->prepare('INSERT INTO recette VALUES(?,?,?,?)');
+        $ins->execute(array(NULL,  $data['date'], $data['somme'],$data['agence']));
     }
 
 
-    public static function afficherAll()
+    public static function afficherFromAgence($agence)
     {
         $con = parent::getPDO();        
-        $ins = $con->query('SELECT * FROM caisse ORDER BY date DESC');
+        $ins = $con->query('SELECT * FROM caisse WHERE agence ="'.$agence.'" ORDER BY date DESC');
         $donne = $ins->fetchAll(PDO::FETCH_CLASS, 'Caisse');
 
         return $donne;        
@@ -83,12 +83,12 @@ include_once "Paiement.class.php";
      *Return all the entries of this day from the caisse
      * @param : day date
      */
-     public static function readDayEntryCaisse($day)
+     public static function readDayEntryCaisse($agence,$day)
      {
          $type="entre";
          $con = parent::getPDO();
-         $select = $con->prepare('SELECT * FROM caisse WHERE type=? AND date=?');
-         $select->execute(array($type,$day));
+         $select = $con->prepare('SELECT * FROM caisse WHERE agence=? and type=? AND date=?');
+         $select->execute(array($agence,$type,$day));
 
          $data = $select->fetchAll(PDO::FETCH_CLASS,'Caisse');
 
@@ -112,7 +112,7 @@ include_once "Paiement.class.php";
      *Return all the entries of this month from the caisse
      * @param : day date
      */
-     public static function readMonthEntryCaisse($day)
+     public static function readMonthEntryCaisse($agencce,$day)
      {
          $type="entre";
          //Extraire date
@@ -122,8 +122,8 @@ include_once "Paiement.class.php";
          $m1 = $year.'-'.$month.'-'.'01';
          $m2 = $year.'-'.$month.'-'.'31';
          $con = parent::getPDO();
-         $select = $con->prepare('SELECT * FROM caisse WHERE type=? AND date BETWEEN ? AND ?');
-         $select->execute(array($type,$m1,$m2));
+         $select = $con->prepare('SELECT * FROM caisse WHERE agence=? and  type=? AND date BETWEEN ? AND ?');
+         $select->execute(array($agence,$type,$m1,$m2));
 
          $data = $select->fetchAll(PDO::FETCH_CLASS,'Caisse');
 
@@ -131,7 +131,7 @@ include_once "Paiement.class.php";
 
      }
 
-     public static function readMonthFondCaisse($debut,$fin)
+     public static function readMonthFondCaisse($agence,$debut,$fin)
      {
         $dt_debut = new DateTime($debut);
         $dt_fin = new DateTime($fin);
@@ -140,8 +140,8 @@ include_once "Paiement.class.php";
         $con = parent::getPDO();
 
         $goodDate = date('Y-m-d', strtotime('-1 day', strtotime($debut)));
-        $recette = $con->prepare('SELECT * FROM recette WHERE date_recette = ? ');
-        $recette->execute(array($goodDate));
+        $recette = $con->prepare('SELECT * FROM recette WHERE agence=? and  date_recette = ? ');
+        $recette->execute(array($agence,$goodDate));
         $result = $recette->fetchAll(PDO::FETCH_CLASS,'Caisse');
 
         $data = [];
@@ -168,7 +168,7 @@ include_once "Paiement.class.php";
         return [$result,$data];
      }
 
-     public static function readMonthSortyCaisse($day)
+     public static function readMonthSortyCaisse($agence, $day)
      {
          $type="sortie";
          //Extraire date
@@ -179,8 +179,8 @@ include_once "Paiement.class.php";
          $m2 = $year.'-'.$month.'-'.'31';
 
          $con = parent::getPDO();
-         $select = $con->prepare('SELECT * FROM caisse WHERE type=? AND date BETWEEN ? AND ?');
-         $select->execute(array($type,$m1,$m2));
+         $select = $con->prepare('SELECT * FROM caisse WHERE agence=? and  type=? AND date BETWEEN ? AND ?');
+         $select->execute(array($agence,$type,$m1,$m2));
 
          $data = $select->fetchAll(PDO::FETCH_CLASS,'Caisse');
 
@@ -192,12 +192,12 @@ include_once "Paiement.class.php";
      *Return all the sorties of this day from the caisse
      * @param : day date
      */
-     public static function readDaySortyCaisse($day)
+     public static function readDaySortyCaisse($agence,$day)
      {
          $type="sortie";
          $con = parent::getPDO();
-         $select = $con->prepare('SELECT * FROM caisse WHERE type=? AND date=?');
-         $select->execute(array($type,$day));
+         $select = $con->prepare('SELECT * FROM caisse WHERE agence=? and  type=? AND date=?');
+         $select->execute(array($agence,$type,$day));
 
          $data = $select->fetchAll(PDO::FETCH_CLASS,'Caisse');
 
@@ -209,7 +209,7 @@ include_once "Paiement.class.php";
     *Return all the Sorties of this Year from the caisse
     * @param : day date
     */
-     public static function readYearSortyCaisse($day)
+     public static function readYearSortyCaisse($agence, $day)
      {
          $type="sortie";
          //Extraire date
@@ -219,8 +219,8 @@ include_once "Paiement.class.php";
          $m2 = $year.'-'.'12'.'-'.'31';
 
          $con = parent::getPDO();
-         $select = $con->prepare('SELECT * FROM caisse WHERE type=? AND date BETWEEN ? AND ?');
-         $select->execute(array($type,$m1,$m2));
+         $select = $con->prepare('SELECT * FROM caisse WHERE agence=? and  type=? AND date BETWEEN ? AND ?');
+         $select->execute(array($agence, $type,$m1,$m2));
 
          $data = $select->fetchAll(PDO::FETCH_CLASS,'Caisse');
 
@@ -232,7 +232,7 @@ include_once "Paiement.class.php";
    *Return all the Entries of this Year from the caisse
    * @param : day date
    */
-     public static function readYearEntryCaisse($day)
+     public static function readYearEntryCaisse($agence,$day)
      {
          $type="entre";
          //Extraire date
@@ -242,8 +242,8 @@ include_once "Paiement.class.php";
          $m2 = $year.'-'.'12'.'-'.'31';
 
          $con = parent::getPDO();
-         $select = $con->prepare('SELECT * FROM caisse WHERE type=? AND date BETWEEN ? AND ?');
-         $select->execute(array($type,$m1,$m2));
+         $select = $con->prepare('SELECT * FROM caisse WHERE agence=? and  type=? AND date BETWEEN ? AND ?');
+         $select->execute(array($agence,$type,$m1,$m2));
 
          $data = $select->fetchAll(PDO::FETCH_CLASS,'Caisse');
 
@@ -353,10 +353,10 @@ include_once "Paiement.class.php";
          $delete->execute(array($id));
      }
 
-     public static function afficherRecette()
+     public static function afficherRecette($agence)
      {
         $con = parent::getPDO();
-        $select = $con->query('SELECT * FROM recette ORDER BY date_recette DESC');
+        $select = $con->query('SELECT * FROM recette WHERE agence="'.$agence.'" ORDER BY date_recette DESC');
         $donne = $select->fetchAll(PDO::FETCH_CLASS, 'Caisse');
 
         return $donne;

@@ -7,8 +7,11 @@ if(isset($_GET['agence']))
 {
     $eleves = Eleve::afficherInscrisAgencePeriode($_GET['agence'], $_GET['debut'], $_GET['fin']);
     $agence = Agence::afficherAgenceOne($_GET['agence']);
-}else
+    $nom_agence =  $agence[0]->nom_agence;
+}else{
     $eleves = Eleve::afficherInscrisPeriode($_GET['debut'], $_GET['fin']);
+    $nom_agence = 'Toutes agences';
+}
 
 // reference the Dompdf namespace
 use Dompdf\Dompdf;
@@ -21,7 +24,7 @@ ob_start();
 ?>
     <div class="container">
         <img  src="head.png" width="100 %" >
-            <h2 class="title1">Liste des élèves :  <?= $agence[0]->nom_agence ?>période du <?= date("d/m/Y",strtotime($_GET['debut']))?> au <?= date("d/m/Y",strtotime($_GET['fin']))?> </h2>
+        <h2 class="title1">Elèves inscris à :  <?= $nom_agence ?> sur la période du <?= date("d/m/Y",strtotime($_GET['debut']))?> au <?= date("d/m/Y",strtotime($_GET['fin']))?> </h2>
         <br>
         <table class="table">
             <thead class="title">
@@ -35,22 +38,22 @@ ob_start();
             </tr>
             </thead>
             <tbody>
-                <?php
-                    $j=1;
-                    foreach ($eleves as $eleve)
-                        {?>
-                            <tr>
-                                <td class="num"><?= $j ?></td>
-                                <td class="info"><?= $eleve->nom  ?></td>
-                                <td class="info"><?= $eleve->prenom ?></td>
-                                <td class="info"><?= $eleve->categorie ?></td>
-                                <td class="info"><?= date("d/m/Y", strtotime($eleve->dob)).' à '. $eleve->pob ?></td>
-                                <td class="info"><?= date("d/m/Y", strtotime($eleve->dor)) ?></td>
-                            </tr>
-                            <?php
-                            $j++;
-                        }
-                ?>
+            <?php
+                $j=1;
+                foreach ($eleves as $eleve)
+                {?>
+                    <tr>
+                        <td class="num"><?= $j ?></td>
+                        <td class="info"><?= $eleve->nom  ?></td>
+                        <td class="info"><?= $eleve->prenom ?></td>
+                        <td class="info"><?= $eleve->categorie ?></td>
+                        <td class="info"><?= date("d/m/Y", strtotime($eleve->dob)).' à '. $eleve->pob ?></td>
+                        <td class="info"><?= date("d/m/Y", strtotime($eleve->dor)) ?></td>
+                    </tr>
+                    <?php
+                    $j++;
+                }
+            ?>
             </tbody>
         </table>
     </div>
@@ -105,5 +108,5 @@ $dompdf->setPaper('A4', 'portrait');
 $dompdf->render();
 
 // Output the generated PDF to Browser
-$dompdf->stream( $agence[0]->nom_agence . 'période du '. date("d/m/Y",strtotime($_GET['debut'])). ' au '.date("d/m/Y",strtotime($_GET['fin']))
+$dompdf->stream(  'Elèves inscris sur la période du '. date("d/m/Y",strtotime($_GET['debut'])). ' au '.date("d/m/Y",strtotime($_GET['fin']))
 ,array('Attachment'=>0));

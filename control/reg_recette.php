@@ -12,6 +12,7 @@ session_start();
 	$data = array(
 		'somme' => $somme,
 	    'date' => $date,
+	    'agence' => $_SESSION['agence'],
     );
 
 

@@ -6,7 +6,7 @@ include_once("../../model/Caisse.class.php");
 $date_debut = $_POST['dt_debut'];
 $date_fin = $_POST['dt_fin'];
 
-$soldes = Caisse::readMonthFondCaisse($date_debut,$date_fin);
+$soldes = Caisse::readMonthFondCaisse($_SESSION['agence'],$date_debut,$date_fin);
 
 setlocale(LC_TIME, 'french');
 

@@ -2,7 +2,7 @@
 <form role="form" id="formulaire_save">
     <div class="col-lg-6">
         <div class="form-group">
-            <label>Nom</label>
+            <label>Nom <span class="text-danger">*</span> </label>
             <input id="nom_save" type="text" class="form-control" placeholder="Nom" required>
 
         </div>

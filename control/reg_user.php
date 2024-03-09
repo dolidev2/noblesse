@@ -10,6 +10,7 @@ session_start();
 	$prenom = strip_tags(htmlspecialchars(trim($_POST['prenom'])));
 	$username = strip_tags(htmlspecialchars(trim($_POST['username'])));
 	$fonction = strip_tags(htmlspecialchars(trim($_POST['fonction'])));
+	$agence = strip_tags(htmlspecialchars(trim($_POST['agence'])));
 	$password = $_POST['password'];
 
 	$data = array(
@@ -17,7 +18,9 @@ session_start();
 		'prenom_user' => $prenom,
 		'username' => $username,
 		'password' => $password,
-		'fonction' => $fonction);
+		'fonction' => $fonction,
+		'agence' =>$agence,
+    );
 
       $desc_audit = $nom.' '.$prenom.' ajouté comme utilisateur';
 

@@ -5,8 +5,8 @@ include_once("../../model/Caisse.class.php");
 
 $date = $_GET['date'];
 
-$depEntre = Caisse::readMonthEntryCaisse($date);
-$depSortie = Caisse::readMonthSortyCaisse($date);
+$depEntre = Caisse::readMonthEntryCaisse($_SESSION['agence'],$date);
+$depSortie = Caisse::readMonthSortyCaisse($_SESSION['agence'],$date);
 //$soldes = Caisse::readMonthFondCaisse($date);
 
 

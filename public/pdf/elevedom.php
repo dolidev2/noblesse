@@ -11,6 +11,7 @@ if ($ind == 'cours')
         $eleves = Eleve::afficherCours();
   
     $acc = 'en cours';
+
 }
 else
 {
@@ -29,7 +30,9 @@ $dompdf = new Dompdf();
 
 $dompdf->set_option('isHtml5ParserEnabled', true);
 ob_start();
+
 ?>
+
     <div class="container">
         <img  src="head.png" width="100 %" >
         <h2 class="title1">Liste des élèves  <?= $acc ?></h2>

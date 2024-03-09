@@ -28,16 +28,16 @@
             <input id="adresse_save" type="text" class="form-control" value="<?=$eleve[0]->adresse; ?>" required>
         </div>
         <div class="form-group">
-            <label>Date d'inscription</label>
-            <input id="dor_save" type="date" class="form-control" value="<?= date("Y-m-d",strtotime($eleve[0]->dor)); ?>" required>
-        </div>
-        <div class="form-group">
             <label>Date de Naissance</label>
             <input id="dob_save" type="date" class="form-control" value="<?=$eleve[0]->dob; ?>" required>                                        
         </div>
         <div class="form-group">
             <label>Lieu de Naissance</label>
             <input id="pob_save" type="text" class="form-control" value="<?=$eleve[0]->pob; ?>" required>
+        </div>
+        <div class="form-group">
+            <label>Frais d'examen</label>
+            <input id="frais_examen" type="text" class="form-control" value="<?=$eleve[0]->examen; ?>" required>
         </div>
     </div>
 

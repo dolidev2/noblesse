@@ -21,6 +21,7 @@ session_start();
 		$forfait = strip_tags(htmlspecialchars(trim($_POST['forfait'])));
 		$solde = strip_tags(htmlspecialchars(trim($_POST['solde'])));
 		$sexe = strip_tags(htmlspecialchars(trim($_POST['sexe'])));
+		$frais = strip_tags(htmlspecialchars(trim($_POST['frais'])));
 		$adresse = strip_tags(htmlspecialchars(trim($_POST['adresse'])));
 		$agence = strip_tags(htmlspecialchars(trim($_POST['agence'])));
 		$recommandation = strip_tags(htmlspecialchars(trim($_POST['recommandation'])));
@@ -57,6 +58,7 @@ session_start();
 			'forfait' => $forfait,
 			'solde' => $solde,
 			'sexe' => $sexe,
+			'frais' => $frais,
 			'adresse' => $adresse,
 			'agence' => $agence,
 			'matricule' => $matricule,

@@ -5,8 +5,8 @@ include_once("../../model/Caisse.class.php");
 
 $date = $_GET['date'];
 
-$depEntre = Caisse::readDayEntryCaisse($date);
-$depSortie = Caisse::readDaySortyCaisse($date);
+$depEntre = Caisse::readDayEntryCaisse($_SESSION['agence'],$date);
+$depSortie = Caisse::readDaySortyCaisse($_SESSION['agence'],$date);
 
 
 // reference the Dompdf namespace

@@ -8,9 +8,9 @@
                         <i class="fa fa-group fa-5x"></i>
                     </div>
                     <?php 
-                        $all = Eleve::countAll();
-                        $cours = Eleve::countCours();
-                        $permi = Eleve::countPermi();
+                        $all = Eleve::countAll($_SESSION['agence']);
+                        $cours = Eleve::countCours($_SESSION['agence']);
+                        $permi = Eleve::countPermi($_SESSION['agence']);
                      ?>
                     <div class="col-xs-9 text-right">
                         <div class="huge"><?=$all[0]->nombre ; ?></div>
@@ -118,7 +118,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                <?php $pupil = Eleve::afficher10dernier(); ?>
+                <?php $pupil = Eleve::afficher10dernier($_SESSION['agence']); ?>
                 <?php foreach ($pupil as $pup) : ?>
                         <tr class="odd gradeX">
                             <td><?=$pup->matricule; ?></td>

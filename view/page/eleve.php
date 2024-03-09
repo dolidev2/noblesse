@@ -5,18 +5,32 @@ include_once '../model/Agence.class.php' ;
 $agences = Agence::afficherAgence();
 $agenc = '';
 $agenceId = '';
-if(isset($_GET['agence'])){
-    $ag = Agence::afficherAgenceOne($_GET['agence']); 
+if( $_SESSION['agence'] != 1 ){
+    $ag = Agence::afficherAgenceOne($_SESSION['agence']);
+    $agenc = $ag[0]->nom_agence;
+    $agenceId =$_SESSION['agence'];
+    $eleves = Eleve::afficherCoursAgence($_SESSION['agence']); $i=1;
+    $elevePermis = Eleve::afficherStatutAgence($_SESSION['agence']); $i=1;
+    $depotUrl = "index.php?page=bordereau&agence=".$_SESSION['agence']."&date_depot=";
+    $urlListeSimple = '../public/pdf/elevedom.php?ind=cours&agence='.$_SESSION['agence'];
+    $urlListeSolde= '../public/pdf/paiementdom.php?ind=solde&agence='.$_SESSION['agence'];
+    $urlListeRedevable= '../public/pdf/paiementdom.php?ind=redevable&agence='.$_SESSION['agence'];
+    $urlListeImpaye= '../public/pdf/paiementdom.php?ind=impaye&agence='.$_SESSION['agence'];
+    $urlListePermis= '../public/pdf/elevedom.php?ind=permis&agence='.$_SESSION['agence'];
+    $depot = Bordereau::displayBordereauFromAgence($_SESSION['agence']);
+}elseif(isset($_GET['agence'])){
+    $ag = Agence::afficherAgenceOne($_GET['agence']);
     $agenc = $ag[0]->nom_agence;
     $agenceId =$_GET['agence'];
     $eleves = Eleve::afficherCoursAgence($_GET['agence']); $i=1;
-    $elevePermis = Eleve::afficherStatutAgence($_GET['agence']); $i=1; 
+    $elevePermis = Eleve::afficherStatutAgence($_GET['agence']); $i=1;
     $depotUrl = "index.php?page=bordereau&agence=".$_GET['agence']."&date_depot=";
     $urlListeSimple = '../public/pdf/elevedom.php?ind=cours&agence='.$_GET['agence'];
     $urlListeSolde= '../public/pdf/paiementdom.php?ind=solde&agence='.$_GET['agence'];
     $urlListeRedevable= '../public/pdf/paiementdom.php?ind=redevable&agence='.$_GET['agence'];
     $urlListeImpaye= '../public/pdf/paiementdom.php?ind=impaye&agence='.$_GET['agence'];
     $urlListePermis= '../public/pdf/elevedom.php?ind=permis&agence='.$_GET['agence'];
+    $depot = Bordereau::displayBordereauFromAgence($_GET['agence']);
 }
 else{
 
@@ -28,55 +42,61 @@ else{
     $urlListeRedevable= '../public/pdf/paiementdom.php?ind=redevable';
     $urlListeImpaye= '../public/pdf/paiementdom.php?ind=impaye';
     $urlListePermis= '../public/pdf/elevedom.php?ind=permis';
+    $depot = Bordereau::displayBordereauFromAgence($_SESSION['agence']);
 }
 
-$depot = Bordereau::displayBordereauDepotOne();
 $elev = Eleve::afficherCoursExpire($eleves);
 $elevR = Eleve::afficherCoursExpireReinscription($eleves);
 
-?>
-<div class="row">
-    <form action="../control/agence_inscris_periode.php" method="POST">
-        <div class="col-lg-1">
-            <label for="Agence">Agence</label> 
-        </div>
-        <div class="col-lg-3">
-            <select id="agence_select" class="form-control">
-                <option value="">----------------</option>
-                <?php 
-                    foreach($agences as $agence){
-                    ?>
-                        <option value="<?= $agence->id_agence ?>"><?= $agence->nom_agence ?></option>
+
+if($_SESSION['agence'] == 1){
+    ?>
+    <div class="row">
+        <form action="../control/agence_inscris_periode.php" method="POST">
+            <div class="col-lg-1">
+                <label for="Agence">Agence</label>
+            </div>
+            <div class="col-lg-3">
+                <select id="agence_select" class="form-control">
+                    <option value="">----------------</option>
                     <?php
-                    }
-                ?>
-            </select>
-        </div>
-        <div class="col-lg-2">
-            <label><?= $agenc ?></label> 
-        </div>
-        <div class="col-lg-6">
-            <div class="row">
-                <div class="col-lg-5">
-                    <label for="Agence">Date de début</label> 
-                    <input type="hidden" value="<?= $agenceId ?>" name="agence_inscris" >
-                    <input type="date" name="dt_debut" class="form-control" require>
-                </div>
-                <div class="col-lg-5">
-                    <label for="Agence">Date de fin</label> 
-                    <input type="date" name="dt_fin"  class="form-control" require>
-                </div>
-                <div>
-                <div class="col-lg-2">
-                    <button type="submit" class="btn btn-primary">
-                        Valider
-                    </button>
-                </div>
+                        foreach($agences as $agence){
+                            ?>
+                            <option value="<?= $agence->id_agence ?>"><?= $agence->nom_agence ?></option>
+                            <?php
+                        }
+                    ?>
+                </select>
+            </div>
+            <div class="col-lg-2">
+                <label><?= $agenc ?></label>
+            </div>
+            <div class="col-lg-6">
+                <div class="row">
+                    <div class="col-lg-5">
+                        <label for="Agence">Date de début</label>
+                        <input type="hidden" value="<?= $agenceId ?>" name="agence_inscris" >
+                        <input type="date" name="dt_debut" class="form-control" require>
+                    </div>
+                    <div class="col-lg-5">
+                        <label for="Agence">Date de fin</label>
+                        <input type="date" name="dt_fin"  class="form-control" require>
+                    </div>
+                    <div>
+                        <div class="col-lg-2">
+                            <button type="submit" class="btn btn-primary">
+                                Valider
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </form>
-</div>
+        </form>
+    </div>
+
+    <?php
+}
+?>
 <br>
 <div class="row">
     <div class="panel panel-default">
@@ -105,16 +125,16 @@ $elevR = Eleve::afficherCoursExpireReinscription($eleves);
                             <form role="form" id="formulaire_save">
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label>Nom</label>
+                                        <label>Nom <span class="text-danger">*</span></label>
                                         <input id="nom_save" type="text" class="form-control" placeholder="Nom" required>
 
                                     </div>
                                     <div class="form-group">
-                                        <label>Prénom</label>
+                                        <label>Prénom <span class="text-danger">*</span></label>
                                         <input id="prenom_save" type="text" class="form-control" placeholder="Prénom" required>
                                     </div>
                                     <div class="form-group">
-                                        <label>Contact</label>
+                                        <label>Contact <span class="text-danger">*</span></label>
                                         <input id="contact_save" type="text" class="form-control" placeholder="Numéro" required>
                                     </div>
                                     <div class="form-group">
@@ -122,7 +142,7 @@ $elevR = Eleve::afficherCoursExpireReinscription($eleves);
                                         <input id="profession_save" type="text" class="form-control" placeholder="Profession" >
                                     </div>
                                     <div class="form-group">
-                                        <label>Adresse</label>
+                                        <label>Adresse <span class="text-danger">*</span></label>
                                         <input id="adresse_save" type="text" class="form-control" placeholder="Adresse" required>
                                     </div>
                                     <div class="form-group">
@@ -133,11 +153,15 @@ $elevR = Eleve::afficherCoursExpireReinscription($eleves);
                                         <label>Lieu de Naissance</label>
                                         <input id="pob_save" type="text" class="form-control" >
                                     </div>
+                                    <div class="form-group">
+                                        <label>Frais d'examen <span class="text-danger">*</span></label>
+                                        <input id="frais_examen" type="number" class="form-control" placeholder="Frais d'examen" required>
+                                    </div>
                                 </div>
 
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label>Catégorie Permis</label>
+                                        <label>Catégorie Permis <span class="text-danger">*</span></label>
                                         <select id="categorie_save" class="form-control" required>
                                            <option  value="A">A</option>
                                            <option  value="B">B</option>
@@ -147,7 +171,7 @@ $elevR = Eleve::afficherCoursExpireReinscription($eleves);
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label>Forfait</label>
+                                        <label>Forfait <span class="text-danger">*</span></label>
                                         <select id="forfait_save" class="form-control" required>
                                            <option selected  value="normal">Tarif Normal</option>
                                            <option  value="special">Tarif Spécial</option>
@@ -156,28 +180,30 @@ $elevR = Eleve::afficherCoursExpireReinscription($eleves);
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label>Solde Forfait</label>
+                                        <label>Solde Forfait <span class="text-danger">*</span></label>
                                         <input id="solde_save" type="number" class="form-control" placeholder="Solde du forfait" required>
                                     </div>
                                     <div class="form-group">
-                                        <label>Sexe</label>
+                                        <label>Sexe <span class="text-danger">*</span></label>
                                         <select id="sexe_save" class="form-control" required>
                                            <option selected value="masculin">masculin</option>
                                            <option value="feminin">feminin</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label>Recommandation</label>
-                                        <input id="recommandation" type="text" class="form-control" placeholder="Recommandation pour l'inscription">
+                                        <label>Recommandation <span class="text-danger">*</span></label>
+                                        <input id="recommandation" type="text" class="form-control" required placeholder="Recommandation pour l'inscription">
                                     </div>
                                     <div class="form-group">
-                                        <label>Agence</label>
+                                        <label>Agence <span class="text-danger">*</span></label>
                                         <select id="agence" class="form-control" required>
                                             <?php
                                                 foreach($agences as $agence){
+                                                    if($agence->id_agence == $_SESSION['agence']){
                                                     ?>
                                                     <option value="<?= $agence->id_agence ?>"><?= $agence->nom_agence ?></option>
                                                     <?php
+                                                    }
                                                 }
                                             ?>
                                         </select>
@@ -237,6 +263,7 @@ $elevR = Eleve::afficherCoursExpireReinscription($eleves);
                                             <div class="col-6">
                                                 <label>Description : </label>
                                                 <input type="text" id="desc_depot" class="form-control" placeholder="Ex: dépôt permis C">
+                                                <input type="hidden" id="agence_depot" value="<?= $_SESSION['agence'] ?>">
                                             </div>
                                         </div>
                                         <div class="modal-footer">
@@ -254,25 +281,27 @@ $elevR = Eleve::afficherCoursExpireReinscription($eleves);
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="#print_agence">Liste des Élève</h5>
+                                            <h5 class="modal-title" id="#print_agence">Liste des Élèves inscris sur la période</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
-                                        <form method="g" action="../public/pdf/paiement_periode.php">
+                                        <form method="get" action="../public/pdf/paiement_periode.php">
                                             <div class="modal-body">
                                                 <div class="row">
                                                     <div class="col-6">
                                                         <label>Date de debut</label>
                                                         <input type="date" name="debut" class="form-control">
-                                                    </div>  
+                                                    </div>
                                                     <div class="col-6">
                                                         <label>Date de fin</label>
                                                         <input type="date" name="fin" class="form-control">
+                                                        <?php if (isset( $_GET['agence'])): ?>
                                                         <input type="hidden" name="agence" value="<?= $_GET['agence'] ?>" class="form-control">
+                                                        <?php endif; ?>
                                                     </div>
                                                 </div>
-                                    
+
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="submit" name="submit" class="btn btn-primary">Valider</button>
@@ -311,7 +340,13 @@ $elevR = Eleve::afficherCoursExpireReinscription($eleves);
                                                 <input type="checkbox" class="form-group check"	id="<?= $ev['id_eleve'] ?>" >
                                             </td>
                                             <td>
-                                                <button title="Supprimer" type="button" name="delete" id="<?= $ev['id_eleve'] ?>" class="btn btn-danger btn-sm delete_eleve " ><i class="glyphicon glyphicon glyphicon-trash"></i></button>
+                                              <?php
+                                              if ($_SESSION['fonction'] == 'administrateur'):
+                                                  ?>
+                                                    <button title="Supprimer" type="button" name="delete" id="<?= $ev['id_eleve'] ?>" class="btn btn-danger btn-sm delete_eleve " ><i class="glyphicon glyphicon glyphicon-trash"></i></button>
+                                                <?php
+                                                  endif;
+                                              ?>
                                                 <button title="Modifier" type="button" name="update" id="<?= $ev['id_eleve'] ?>" class="btn btn-primary btn-sm update_eleve "><i class="glyphicon glyphicon-pencil"></i></button>
                                                 <button type="button" title="Examen"  name="examen" id="'<?= $ev['id_eleve'] ?>" class="btn btn-success examen_eleve "><i class="glyphicon glyphicon-ok"></i></button>
                                                 <button type="button" title="Paiement"  name="paiement" id="<?= $ev['id_eleve'] ?>" class="btn btn-warning paiement_eleve "><i class="glyphicon glyphicon-th-large"></i></button>
@@ -395,7 +430,6 @@ $elevR = Eleve::afficherCoursExpireReinscription($eleves);
                                 <tbody>
                                   <?php
                                     $i=1;
-                                    $depot = Bordereau::displayBordereauDepotOne();
                                     foreach($depot as $dt){
                                       $part = Bordereau::displayParticipantDepot($dt->id_bordereau);
                                       ?>
@@ -508,7 +542,7 @@ $elevR = Eleve::afficherCoursExpireReinscription($eleves);
                     <div class="modal-content">
                         <div class="modal-header">
                             <h4 class="modal-title">
-                             
+
                             </h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
@@ -543,9 +577,6 @@ $elevR = Eleve::afficherCoursExpireReinscription($eleves);
 <div id="comment"></div>
 
 <script type="text/javascript">
-
-
-
     $(document).ready(function () {
 
         var dataTable = $('#course_table').DataTable({
@@ -573,7 +604,7 @@ $elevR = Eleve::afficherCoursExpireReinscription($eleves);
             $('#reinscrire_eleve').modal('show');
             var eleve_id = $(this).attr("id");
             $('#eleve_id_reinscrire').val(eleve_id);
-      
+
         });
 
 
@@ -598,7 +629,8 @@ $elevR = Eleve::afficherCoursExpireReinscription($eleves);
 
             var depot = $('#date_depot').val();
             var desc_depot = $('#desc_depot').val();
-            $.post('../control/bordereau.php', {data:data,depot:depot,desc_depot:desc_depot}, function(response)
+            var agence_depot = $('#agence_depot').val();
+            $.post('../control/bordereau.php', {data:data,depot:depot,agence:agence_depot,desc_depot:desc_depot}, function(response)
             {
               window.location.href = "index.php?page=eleve";
             });
@@ -617,6 +649,7 @@ $elevR = Eleve::afficherCoursExpireReinscription($eleves);
             var pob = $('#pob_save').val();
             var categorie = $('#categorie_save').val();
             var forfait = $('#forfait_save').val();
+            var frais = $('#frais_examen').val();
             var solde = $('#solde_save').val();
             var sexe = $('#sexe_save').val();
             var recommandation = $('#recommandation').val();
@@ -628,7 +661,7 @@ $elevR = Eleve::afficherCoursExpireReinscription($eleves);
             }
 
             $.post('../control/reg_eleve.php', {nom:nom,prenom:prenom,contact:contact,profession:profession,adresse:adresse,dob:dob,pob:pob,categorie:categorie,
-                forfait:forfait,solde:solde,sexe:sexe,recommandation:recommandation,agence:agence,montant:montant}, function(response)
+                forfait:forfait,solde:solde,sexe:sexe,frais:frais,recommandation:recommandation,agence:agence,montant:montant}, function(response)
             {
                 $('#comment').html(response);
             });
@@ -650,28 +683,28 @@ $elevR = Eleve::afficherCoursExpireReinscription($eleves);
                     dataTables.ajax.reload();
                 }
             });
-              
+
             } else {
                 return false;
             }
             });
 
-         
+
         $(document).on('click', '.update_eleve', function(){
             var id_eleve = $(this).attr("id");
             window.location.href = "index.php?page=up_eleve&id_eleve="+id_eleve;
         });
-        
+
         $(document).on('click', '.examen_eleve', function(){
             var id_eleve = $(this).attr("id");
             window.location.href = "index.php?page=eleve_examen&id_eleve="+id_eleve;
-        });  
-        
+        });
+
         $(document).on('click', '.detail_eleve', function(){
             var id_eleve = $(this).attr("id");
             window.location.href = "index.php?page=eleve_detail&id_eleve="+id_eleve;
-        });  
-        
+        });
+
         $(document).on('click', '.paiement_eleve', function(){
             var id_eleve = $(this).attr("id");
             window.location.href = "index.php?page=de_eleve&id_eleve="+id_eleve;
@@ -685,7 +718,4 @@ $elevR = Eleve::afficherCoursExpireReinscription($eleves);
             });
         });
     });
-
-
-
 </script>

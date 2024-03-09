@@ -26,8 +26,6 @@ class Versement extends Model {
         );
         //Insert data to Caisse
         Caisse::register($data_caisse);
-
-
     }
     /*
     * update a versement
@@ -43,10 +41,10 @@ class Versement extends Model {
     /*
    * read all versement
    */
-    public static function read(){
+    public static function read($agence){
 
         $con = parent::getPDO();
-        $select = $con->query('SELECT * FROM versement ORDER BY date DESC ');
+        $select = $con->query('SELECT * FROM versement WHERE agence="'.$agence.'" ORDER BY date DESC ');
         $data = $select->fetchAll(PDO::FETCH_CLASS,'Versement');
 
         return $data;
@@ -62,7 +60,6 @@ class Versement extends Model {
         $data = $select->fetchAll(PDO::FETCH_CLASS,'Versement');
 
         return $data;
-
     }
 
     /*
@@ -79,7 +76,7 @@ class Versement extends Model {
     * read a single versement
      * @param date date
   */
-    public static function readMonth($day){
+    public static function readMonth($agence,$day){
 
         $con = parent::getPDO();
 
@@ -88,13 +85,11 @@ class Versement extends Model {
         $year  = $mydate[0];
         $m1 = $year.'-'.$month.'-'.'01';
         $m2 = $year.'-'.$month.'-'.'31';
-        $select = $con->prepare('SELECT * FROM versement WHERE date BETWEEN ? AND ? ');
-        $select->execute(array($m1,$m2));
+        $select = $con->prepare('SELECT * FROM versement WHERE agence=? AND date BETWEEN ? AND ? ');
+        $select->execute(array($agence,$m1,$m2));
         $data = $select->fetchAll(PDO::FETCH_CLASS,'Versement');
 
         return $data;
-
     }
-
 
 }

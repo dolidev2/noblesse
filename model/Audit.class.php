@@ -19,11 +19,11 @@ class Audit extends Model{
      * add a new audit
      * @param : data array
      */
-    public static function read(){
+    public static function read($agence){
 
         $con= parent::getPDO();
 
-        $select = $con->query('SELECT * FROM audit a , users u WHERE a.user=u.id_user ORDER BY date DESC ');
+        $select = $con->query('SELECT * FROM audit a , users u WHERE a.user=u.id_user and u.agence="'.$agence.'" ORDER BY date DESC ');
         $data = $select->fetchAll(PDO::FETCH_CLASS, 'Audit');
 
         return $data;

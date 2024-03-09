@@ -6,43 +6,63 @@ $agences = Agence::afficherAgence();
 $agenc = '';
 if(isset($_GET['agence']))
 {
-    $ag = Agence::afficherAgenceOne($_GET['agence']); 
+    $ag = Agence::afficherAgenceOne($_GET['agence']);
     $agenc = $ag[0]->nom_agence;
     $reds = Eleve::afficherCourAgence($_GET['agence']);
-    $els = Eleve::afficherStatutAgence($_GET['agence']); 
-}else{
+    $els = Eleve::afficherStatutAgence($_GET['agence']);
+}
+elseif ($_SESSION['agence']){
+    $ag = Agence::afficherAgenceOne($_SESSION['agence']);
+    $agenc = $ag[0]->nom_agence;
+    $reds = Eleve::afficherCourAgence($_SESSION['agence']);
+    $els = Eleve::afficherStatutAgence($_SESSION['agence']);
+}
+else{
     $reds = Eleve::afficherCour();
     $els = Eleve::afficherStatut(); 
 }
 $elev = Eleve::afficherCoursExpire($reds);
-?>
-<div class="row">
-    <div class="col-lg-1">
-        <label for="Agence">Agence</label> 
-    </div>
-    <div class="col-lg-5">
-        <select id="agence_select" class="form-control">
-            <option value="">----------------</option>
-            <?php 
-                foreach($agences as $agence){
-                ?>
-                    <option value="<?= $agence->id_agence ?>"><?= $agence->nom_agence ?></option>
+
+if($_SESSION['agence'] == 1){
+    ?>
+    <div class="row">
+        <div class="col-lg-1">
+            <label for="Agence">Agence</label>
+        </div>
+        <div class="col-lg-5">
+            <select id="agence_select" class="form-control">
+                <option value="">----------------</option>
                 <?php
-                }
-            ?>
-        </select>
+                    foreach($agences as $agence){
+                        ?>
+                        <option value="<?= $agence->id_agence ?>"><?= $agence->nom_agence ?></option>
+                        <?php
+                    }
+                ?>
+            </select>
+        </div>
+        <div class="col-lg-6">
+            <label><?= $agenc ?></label>
+        </div>
     </div>
-    <div class="col-lg-6">
-        <label><?= $agenc ?></label> 
-    </div>
-</div>
+
+<?php
+}
+?>
+
 <br>
 <div class="row">
     <div class="panel panel-default">
         <div class="panel-body">
-            <ul class="nav nav-tabs">                
-                <li><a href="#ajouter" data-toggle="tab"><h4>Ajouter</h4></a>
-                </li>
+            <ul class="nav nav-tabs">
+                <?php
+                    if($_SESSION['agence'] == 1 || $_SESSION['position_agence'] != 'OUAGA'){
+                    ?>
+                        <li><a href="#ajouter" data-toggle="tab"><h4>Ajouter</h4></a>
+                        </li>
+                    <?php
+                }
+                ?>
                 <li class="active"><a href="#liste_examen" data-toggle="tab"><h4>Consulter</h4></a>
                 </li>
                 <li><a href="#liste_attente" data-toggle="tab"><h4>Affecter</h4></a>

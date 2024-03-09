@@ -25,7 +25,7 @@ $exam = Examen::afficherOneExamen($_GET['id_examen']);
                 <th>Date de naissance</th>
                 <th>Lieu de naissance</th>
                 <th>Agence</th>
-                <th>Résultat</th>
+                <th>Statut</th>
                 <th>Examen</th>
             </tr>
             </thead>

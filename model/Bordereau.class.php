@@ -26,8 +26,8 @@ include_once "Model.class.php";
 
         $con = parent::getPDO();
 
-        $insert = $con->prepare('INSERT INTO bordereau VALUES (?,?,?,?)');
-        $insert->execute(array(null,$data['date_depot'],$data['desc_depot'],$data['date_creation']));
+        $insert = $con->prepare('INSERT INTO bordereau VALUES (?,?,?,?,?)');
+        $insert->execute(array(null,$data['date_depot'],$data['desc_depot'],$data['date_creation'],$data['agence']));
      }
 
      public static function addBordereauEleve($data)
@@ -38,11 +38,11 @@ include_once "Model.class.php";
          $insert->execute(array(null,$data['eleve'],$data['bordereau']));
    }
 
-     public static function displayBordereauDepotOne(){
+     public static function displayBordereauFromAgence($agence){
 
         $con = parent::getPDO();
 
-        $select = $con->query("SELECT * FROM bordereau ORDER BY date_depot DESC");
+        $select = $con->query('SELECT * FROM bordereau WHERE agence="'.$agence.'"  ORDER BY date_depot DESC');
         $data = $select->fetchAll(PDO::FETCH_CLASS, 'Bordereau');
 
         return $data;

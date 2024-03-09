@@ -3,9 +3,14 @@ include_once'../model/Examen.class.php';
 include_once'../model/Eleve.class.php';
 
 include_once'../model/Programation.class.php';
-
+    if($_SESSION['agence'] != 1)
+    {
+        $reds = Eleve::afficherCourAgence($_SESSION['agence']);
+    }
+    else{
+        $reds = Eleve::afficherCour();
+    }
 $exam = Examen::afficherOne($_GET['id_examen']);
-$reds = Eleve::afficherCour();
 $elev = Eleve::afficherCoursExpire($reds);
 ?>
 <div class="col col-lg-12">

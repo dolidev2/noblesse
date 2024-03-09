@@ -6,8 +6,8 @@ include_once("../../model/Caisse.class.php");
 $date = $_GET['date'];
 
 //Get data from the year
-$depEntre = Caisse::readYearEntryCaisse($date);
-$depSortie = Caisse::readYearSortyCaisse($date);
+$depEntre = Caisse::readYearEntryCaisse($_SESSION['agence'],$date);
+$depSortie = Caisse::readYearSortyCaisse($_SESSION['agence'],$date);
 //Extract the year from the date
 $mydate = explode('-',$date);
 $myyear = $mydate[0];

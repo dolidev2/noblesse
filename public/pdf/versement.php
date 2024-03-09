@@ -5,7 +5,7 @@ include_once("../../model/Versement.class.php");
 
 $date = $_GET['date'];
 
-$vers = Versement::readMonth($date);
+$vers = Versement::readMonth($_SESSION['agence'],$date);
 
 setlocale(LC_TIME, 'french');
 
