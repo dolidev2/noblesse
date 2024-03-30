@@ -4,10 +4,11 @@ require '../../dompdf/vendor/autoload.php';
 include_once("../../model/Caisse.class.php");
 //Store $_GET
 $date = $_GET['date'];
+$agence = $_GET['agence'];
 
 //Get data from the year
-$depEntre = Caisse::readYearEntryCaisse($_SESSION['agence'],$date);
-$depSortie = Caisse::readYearSortyCaisse($_SESSION['agence'],$date);
+$depEntre = Caisse::readYearEntryCaisse($agence,$date);
+$depSortie = Caisse::readYearSortyCaisse($agence,$date);
 //Extract the year from the date
 $mydate = explode('-',$date);
 $myyear = $mydate[0];

@@ -4,10 +4,10 @@ require '../../dompdf/vendor/autoload.php';
 include_once("../../model/Caisse.class.php");
 
 $date = $_GET['date'];
+$agence = $_GET['agence'];
 
-$depEntre = Caisse::readMonthEntryCaisse($_SESSION['agence'],$date);
-$depSortie = Caisse::readMonthSortyCaisse($_SESSION['agence'],$date);
-//$soldes = Caisse::readMonthFondCaisse($date);
+$depEntre = Caisse::readMonthEntryCaisse($agence,$date);
+$depSortie = Caisse::readMonthSortyCaisse($agence,$date);
 
 
 setlocale(LC_TIME, 'french');

@@ -3,10 +3,11 @@
 require '../../dompdf/vendor/autoload.php';
 include_once("../../model/Caisse.class.php");
 
+$agence = $_GET['agence'];
 $date = $_GET['date'];
 
-$depEntre = Caisse::readDayEntryCaisse($_SESSION['agence'],$date);
-$depSortie = Caisse::readDaySortyCaisse($_SESSION['agence'],$date);
+$depEntre = Caisse::readDayEntryCaisse($agence,$date);
+$depSortie = Caisse::readDaySortyCaisse($agence,$date);
 
 
 // reference the Dompdf namespace
@@ -174,8 +175,6 @@ ob_start();
         }
 
     </style>
-
-
 <?php
 $html = ob_get_clean();
 $dompdf->loadHtml($html);

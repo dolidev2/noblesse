@@ -112,7 +112,7 @@ include_once "Paiement.class.php";
      *Return all the entries of this month from the caisse
      * @param : day date
      */
-     public static function readMonthEntryCaisse($agencce,$day)
+     public static function readMonthEntryCaisse($agence,$day)
      {
          $type="entre";
          //Extraire date
@@ -131,11 +131,15 @@ include_once "Paiement.class.php";
 
      }
 
-     public static function readMonthFondCaisse($agence,$debut,$fin)
+     public static function readMonthFondCaisse($agence,$day)
      {
-        $dt_debut = new DateTime($debut);
-        $dt_fin = new DateTime($fin);
-        $jours = $dt_fin->diff($dt_debut)->format("%a");
+         //Extraire date
+         $mydate =explode('-',$day);
+         $month = $mydate[1];
+         $year  = $mydate[0];
+         $debut = $year.'-'.$month.'-'.'01';
+         $fin = $year.'-'.$month.'-'.'31';
+         $jours = 30;
 
         $con = parent::getPDO();
 

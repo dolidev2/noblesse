@@ -3,10 +3,10 @@
 require '../../dompdf/vendor/autoload.php';
 include_once("../../model/Caisse.class.php");
 
-$date_debut = $_POST['dt_debut'];
-$date_fin = $_POST['dt_fin'];
+$date = $_GET['date'];
+$agence = $_GET['agence'];
 
-$soldes = Caisse::readMonthFondCaisse($_SESSION['agence'],$date_debut,$date_fin);
+$soldes = Caisse::readMonthFondCaisse($agence,$date);
 
 setlocale(LC_TIME, 'french');
 
@@ -21,7 +21,7 @@ ob_start();
 ?>
 <div class="container">
     <img  src="head.png" width="100 %" >
-    <h2 class="title1">Clôture de la caisse du  <?= date("d/m/Y",strtotime($date_debut)) ?> au <?= date("d/m/Y",strtotime($date_fin)) ?>  </h2>
+    <h2 class="title1">Clôture de la caisse du mois de <?= utf8_encode(strftime('%B', strtotime($date)))   ?> </h2>
     
     <h4 class="title">Récapitualtif</h4>
     <table class="table">
@@ -36,7 +36,7 @@ ob_start();
         </thead>
         <tbody>
             <?php
-            $titre="Clôture de la caisse du ".date("d/m/Y",strtotime($date_debut)).' au '. date("d/m/Y",strtotime($date_debut));
+            $titre="Clôture de la caisse du mois de".utf8_encode(strftime('%B', strtotime($date)));
             $entre = 0;
             $sortie = 0; 
             $solde = 0;
@@ -53,8 +53,6 @@ ob_start();
                             <?php 
                                   if( isset($soldes[0][0]->somme_recette) && !empty($soldes[0][0]->somme_recette))
                                     echo date("d/m/Y", strtotime($soldes[0][0]->date_recette));
-                                  else
-                                    echo '-------------------';
                             ?>
                         </td>
                         <td colspan="3">fond de caisse</td>
@@ -201,7 +199,6 @@ ob_start();
         }
 
     </style>
-
 
 <?php
 $html = ob_get_clean();
