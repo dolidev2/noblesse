@@ -23,14 +23,14 @@
 			$_SESSION['position_agence'] = $agence[0]->position_agence;
 
 			echo '
-    		    <script language="javascript">
+    		    <script>
 					window.location.href = "view/index.php";
 				</script>';
 		}
 		else
 		{
 			echo '
-    		    <script language="javascript">
+    		    <script>
 					swal("Erreur!", "Utilisateur ou mot de passe Incorrects !", "error");
 				</script>';
 		}
@@ -38,7 +38,7 @@
 	else
 	{
 		echo '
-		     <script type="text/javascript">
+		     <script>
 		         swal("Erreur!", "Champs vides !", "error");
 		    </script>';		    
 	}
