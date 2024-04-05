@@ -99,7 +99,7 @@
 					$('#comment').html(response);
 				});
 
-            alert('test');
+            console.log('test');
 			return false;
 		});
 
