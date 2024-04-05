@@ -92,15 +92,15 @@
 		{
 			var username = $('#username').val();
   			var password = $('#password').val();
-              alert('test');
 
-			// $.post('control/login.php', {username:username, password:password}, function(response)
-			// 	{
-			// 		$('#comment').html(response);
-			// 	});
-            //
-			// return false;
 
+			$.post('control/login.php', {username:username, password:password}, function(response)
+				{
+					$('#comment').html(response);
+				});
+
+            alert('test');
+			return false;
 		});
 
   </script>  
