@@ -15,7 +15,7 @@
 
                      ?>
                     <div class="col-xs-9 text-right">
-                        <div class="huge"><?= var_dump($all); $all[0]->nombre ; ?></div>
+                        <div class="huge"><?=  $all[0]->nombre ; ?></div>
                         <div>Elèves</div>
                     </div>
                 </div>
@@ -95,6 +95,11 @@
             </a>
         </div>
     </div>
+
+    <?php
+
+        var_dump($all);
+    ?>
 </div>
 <!-- DATA TABLES -->
 <!-- /.row -->

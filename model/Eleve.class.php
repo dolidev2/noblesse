@@ -383,9 +383,6 @@ include_once "Reinscription.php";
         return $donne;
     }
 
-
-
-
     /*AFicher un élève*/
      public static function afficherOne($id)
      {
@@ -411,7 +408,7 @@ include_once "Reinscription.php";
         $con = parent::getPDO();
         $ins = $con->query('SELECT count(id_eleve) as nombre FROM eleve WHERE agence="'.$agence.'" ');
         $donne = $ins->fetchAll(PDO::FETCH_CLASS, 'Eleve');
-        return [10,$donne,$ins,$con];
+        return $donne;
     }
 
      public static function countFromYear()
