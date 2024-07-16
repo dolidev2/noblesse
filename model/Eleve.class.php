@@ -377,7 +377,9 @@ include_once "Reinscription.php";
     public static function afficherStatut()
     {
         $con = parent::getPDO();
-        $ins = $con->query('SELECT * FROM eleve e, retrait r,agence a WHERE e.agence=a.id_agence and e.id_eleve=r.eleve ORDER BY nom,prenom');
+        $ins = $con->query('SELECT * FROM eleve e, retrait r,agence a 
+                                    WHERE e.agence=a.id_agence and e.id_eleve=r.eleve 
+                                    ORDER BY e.nom,e.prenom');
         $donne = $ins->fetchAll(PDO::FETCH_CLASS, 'Eleve');
 
         return $donne;

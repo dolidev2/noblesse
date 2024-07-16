@@ -37,7 +37,7 @@
     else{
 
         $eleves = Eleve::afficherCours(); $i=1;
-//        $elevePermis = Eleve::afficherStatut(); $i=1;
+        $elevePermis = Eleve::afficherStatut(); $i=1;
 //        $depotUrl = "index.php?page=bordereau&date_depot=";
 //        $urlListeSimple = '../public/pdf/elevedom.php?ind=cours';
 //        $urlListeSolde= '../public/pdf/paiementdom.php?ind=solde';
@@ -49,7 +49,7 @@
 
     $elev = Eleve::afficherCoursExpire($eleves);
     $elevR = Eleve::afficherCoursExpireReinscription($eleves);
-    var_dump($elev);
+    var_dump([$elev, $elevePermis]);
 
     if($_SESSION['agence'] == 1){
         ?>
