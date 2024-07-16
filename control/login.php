@@ -19,8 +19,9 @@
 			$_SESSION['nom'] = $confirm[0]->nom_user;
 			$_SESSION['prenom'] = $confirm[0]->prenom_user;
 			$_SESSION['agence'] = $confirm[0]->agence;
-            $agence = Agence::afficherAgenceOne($confirm[0]->agence);
+            $agence = Agence::afficherAgenceOne(intval( $confirm[0]->agence));
 			$_SESSION['position_agence'] = $agence[0]->position_agence;
+            $_SESSION['confirm'] = $confirm;
 
 			echo '
     		    <script>
