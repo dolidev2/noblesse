@@ -1,56 +1,57 @@
-<?php //include_once '../model/Eleve.class.php' ;
-//    include_once '../model/Bordereau.class.php' ;
-//    include_once '../model/Agence.class.php' ;
-//
-//    $agences = Agence::afficherAgence();
-//    $agenc = '';
-//    $agenceId = '';
-//    if( $_SESSION['agence'] != 1 ){
-//        $ag = Agence::afficherAgenceOne($_SESSION['agence']);
-//        $agenc = $ag[0]->nom_agence;
-//        $agenceId =$_SESSION['agence'];
-//        $eleves = Eleve::afficherCoursAgence($_SESSION['agence']); $i=1;
-//        $elevePermis = Eleve::afficherStatutAgence($_SESSION['agence']); $i=1;
-//        $depotUrl = "index.php?page=bordereau&agence=".$_SESSION['agence']."&date_depot=";
-//        $urlListeSimple = '../public/pdf/elevedom.php?ind=cours&agence='.$_SESSION['agence'];
-//        $urlListeSolde= '../public/pdf/paiementdom.php?ind=solde&agence='.$_SESSION['agence'];
-//        $urlListeRedevable= '../public/pdf/paiementdom.php?ind=redevable&agence='.$_SESSION['agence'];
-//        $urlListeImpaye= '../public/pdf/paiementdom.php?ind=impaye&agence='.$_SESSION['agence'];
-//        $urlListePermis= '../public/pdf/elevedom.php?ind=permis&agence='.$_SESSION['agence'];
-//        $depot = Bordereau::displayBordereauFromAgence($_SESSION['agence']);
-//    }elseif(isset($_GET['agence'])){
-//        $ag = Agence::afficherAgenceOne($_GET['agence']);
-//        $agenc = $ag[0]->nom_agence;
-//        $agenceId =$_GET['agence'];
-//        $eleves = Eleve::afficherCoursAgence($_GET['agence']); $i=1;
-//        $elevePermis = Eleve::afficherStatutAgence($_GET['agence']); $i=1;
-//        $depotUrl = "index.php?page=bordereau&agence=".$_GET['agence']."&date_depot=";
-//        $urlListeSimple = '../public/pdf/elevedom.php?ind=cours&agence='.$_GET['agence'];
-//        $urlListeSolde= '../public/pdf/paiementdom.php?ind=solde&agence='.$_GET['agence'];
-//        $urlListeRedevable= '../public/pdf/paiementdom.php?ind=redevable&agence='.$_GET['agence'];
-//        $urlListeImpaye= '../public/pdf/paiementdom.php?ind=impaye&agence='.$_GET['agence'];
-//        $urlListePermis= '../public/pdf/elevedom.php?ind=permis&agence='.$_GET['agence'];
-//        $depot = Bordereau::displayBordereauFromAgence($_GET['agence']);
-//    }
-//    else{
-//
-//        $eleves = Eleve::afficherCours(); $i=1;
-//        $elevePermis = Eleve::afficherStatut(); $i=1;
-//        $depotUrl = "index.php?page=bordereau&date_depot=";
-//        $urlListeSimple = '../public/pdf/elevedom.php?ind=cours';
-//        $urlListeSolde= '../public/pdf/paiementdom.php?ind=solde';
-//        $urlListeRedevable= '../public/pdf/paiementdom.php?ind=redevable';
-//        $urlListeImpaye= '../public/pdf/paiementdom.php?ind=impaye';
-//        $urlListePermis= '../public/pdf/elevedom.php?ind=permis';
-//        $depot = Bordereau::displayBordereauFromAgence($_SESSION['agence']);
-//    }
-//
-//    $elev = Eleve::afficherCoursExpire($eleves);
-//    $elevR = Eleve::afficherCoursExpireReinscription($eleves);
-//
-//
-//    if($_SESSION['agence'] == 1){
-//        ?>
+<?php
+    include_once '../model/Eleve.class.php' ;
+    include_once '../model/Bordereau.class.php' ;
+    include_once '../model/Agence.class.php' ;
+
+    $agences = Agence::afficherAgence();
+    $agenc = '';
+    $agenceId = '';
+    if( $_SESSION['agence'] != 1 ){
+        $ag = Agence::afficherAgenceOne($_SESSION['agence']);
+        $agenc = $ag[0]->nom_agence;
+        $agenceId =$_SESSION['agence'];
+        $eleves = Eleve::afficherCoursAgence($_SESSION['agence']); $i=1;
+        $elevePermis = Eleve::afficherStatutAgence($_SESSION['agence']); $i=1;
+        $depotUrl = "index.php?page=bordereau&agence=".$_SESSION['agence']."&date_depot=";
+        $urlListeSimple = '../public/pdf/elevedom.php?ind=cours&agence='.$_SESSION['agence'];
+        $urlListeSolde= '../public/pdf/paiementdom.php?ind=solde&agence='.$_SESSION['agence'];
+        $urlListeRedevable= '../public/pdf/paiementdom.php?ind=redevable&agence='.$_SESSION['agence'];
+        $urlListeImpaye= '../public/pdf/paiementdom.php?ind=impaye&agence='.$_SESSION['agence'];
+        $urlListePermis= '../public/pdf/elevedom.php?ind=permis&agence='.$_SESSION['agence'];
+        $depot = Bordereau::displayBordereauFromAgence($_SESSION['agence']);
+    }elseif(isset($_GET['agence'])){
+        $ag = Agence::afficherAgenceOne($_GET['agence']);
+        $agenc = $ag[0]->nom_agence;
+        $agenceId =$_GET['agence'];
+        $eleves = Eleve::afficherCoursAgence($_GET['agence']); $i=1;
+        $elevePermis = Eleve::afficherStatutAgence($_GET['agence']); $i=1;
+        $depotUrl = "index.php?page=bordereau&agence=".$_GET['agence']."&date_depot=";
+        $urlListeSimple = '../public/pdf/elevedom.php?ind=cours&agence='.$_GET['agence'];
+        $urlListeSolde= '../public/pdf/paiementdom.php?ind=solde&agence='.$_GET['agence'];
+        $urlListeRedevable= '../public/pdf/paiementdom.php?ind=redevable&agence='.$_GET['agence'];
+        $urlListeImpaye= '../public/pdf/paiementdom.php?ind=impaye&agence='.$_GET['agence'];
+        $urlListePermis= '../public/pdf/elevedom.php?ind=permis&agence='.$_GET['agence'];
+        $depot = Bordereau::displayBordereauFromAgence($_GET['agence']);
+    }
+    else{
+
+        $eleves = Eleve::afficherCours(); $i=1;
+        $elevePermis = Eleve::afficherStatut(); $i=1;
+        $depotUrl = "index.php?page=bordereau&date_depot=";
+        $urlListeSimple = '../public/pdf/elevedom.php?ind=cours';
+        $urlListeSolde= '../public/pdf/paiementdom.php?ind=solde';
+        $urlListeRedevable= '../public/pdf/paiementdom.php?ind=redevable';
+        $urlListeImpaye= '../public/pdf/paiementdom.php?ind=impaye';
+        $urlListePermis= '../public/pdf/elevedom.php?ind=permis';
+        $depot = Bordereau::displayBordereauFromAgence($_SESSION['agence']);
+    }
+
+    $elev = Eleve::afficherCoursExpire($eleves);
+    $elevR = Eleve::afficherCoursExpireReinscription($eleves);
+
+
+    if($_SESSION['agence'] == 1){
+        ?>
         <div class="row">
             <form action="../control/agence_inscris_periode.php" method="POST">
                 <div class="col-lg-1">
@@ -59,23 +60,23 @@
                 <div class="col-lg-3">
                     <select id="agence_select" class="form-control">
                         <option value="">----------------</option>
-<!--                        --><?php
-//                            foreach($agences as $agence){
-//                                ?>
-<!--                                <option value="--><?//= $agence->id_agence ?><!--">--><?//= $agence->nom_agence ?><!--</option>-->
-<!--                                --><?php
-//                            }
-//                        ?>
+                        <?php
+                            foreach($agences as $agence){
+                                ?>
+                                <option value="<?= $agence->id_agence ?>"><?= $agence->nom_agence ?></option>
+                                <?php
+                            }
+                        ?>
                     </select>
                 </div>
                 <div class="col-lg-2">
-<!--                    <label>--><?//= $agenc ?><!--</label>-->
+                    <label><?= $agenc ?></label>
                 </div>
                 <div class="col-lg-6">
                     <div class="row">
                         <div class="col-lg-5">
                             <label for="Agence">Date de début</label>
-<!--                            <input type="hidden" value="--><?//= $agenceId ?><!--" name="agence_inscris" >-->
+                            <input type="hidden" value="<?= $agenceId ?>" name="agence_inscris" >
                             <input type="date" name="dt_debut" class="form-control" required>
                         </div>
                         <div class="col-lg-5">
@@ -93,10 +94,9 @@
                 </div>
             </form>
         </div>
-
-<!--        --><?php
-//    }
-//?>
+        <?php
+    }
+?>
 <br>
 <div class="row">
     <div class="panel panel-default">
@@ -110,93 +110,93 @@
                 </li>
                 <li><a href="#listedepot" data-toggle="tab"><h4>Dépôt</h4></a>
                 </li>
-<!--                --><?php //if($_SESSION['fonction'] == "administrateur"): ?>
-<!--                    <li><a href="#inscription" data-toggle="tab"><h4>Réinscription</h4></a></li>-->
-<!--                --><?php // endif; ?>
+                <?php if($_SESSION['fonction'] == "administrateur"): ?>
+                    <li><a href="#inscription" data-toggle="tab"><h4>Réinscription</h4></a></li>
+                <?php  endif; ?>
             </ul>
             <div class="tab-content">
                 <!-- Tab Ajouter user -->
-                <div class="tab-pane fade" id="ajouter">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Ajouter un nouvel Elève
-                        </div>
-                        <div class="panel-body">
-                            <form role="form" id="formulaire_save">
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label>Nom <span class="text-danger">*</span></label>
-                                        <input id="nom_save" type="text" class="form-control" placeholder="Nom" required>
-
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Prénom <span class="text-danger">*</span></label>
-                                        <input id="prenom_save" type="text" class="form-control" placeholder="Prénom" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Contact <span class="text-danger">*</span></label>
-                                        <input id="contact_save" type="text" class="form-control" placeholder="Numéro" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Profession</label>
-                                        <input id="profession_save" type="text" class="form-control" placeholder="Profession" >
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Adresse <span class="text-danger">*</span></label>
-                                        <input id="adresse_save" type="text" class="form-control" placeholder="Adresse" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Date de Naissance</label>
-                                        <input id="dob_save" type="date" class="form-control" >
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Lieu de Naissance</label>
-                                        <input id="pob_save" type="text" class="form-control" >
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Frais d'examen <span class="text-danger">*</span></label>
-                                        <input id="frais_examen" type="number" class="form-control" placeholder="Frais d'examen" required>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label>Catégorie Permis <span class="text-danger">*</span></label>
-                                        <select id="categorie_save" class="form-control" required>
-                                            <option  value="A">A</option>
-                                            <option  value="B">B</option>
-                                            <option  value="C">C</option>
-                                            <option selected value="D">D</option>
-                                            <option  value="E">E</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Forfait <span class="text-danger">*</span></label>
-                                        <select id="forfait_save" class="form-control" required>
-                                            <option selected  value="normal">Tarif Normal</option>
-                                            <option  value="special">Tarif Spécial</option>
-                                            <option  value="accelere">Tarif accéléré</option>
-                                            <option  value="promo">Tarif Promo</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Solde Forfait <span class="text-danger">*</span></label>
-                                        <input id="solde_save" type="number" class="form-control" placeholder="Solde du forfait" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Sexe <span class="text-danger">*</span></label>
-                                        <select id="sexe_save" class="form-control" required>
-                                            <option selected value="masculin">masculin</option>
-                                            <option value="feminin">feminin</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Recommandation <span class="text-danger">*</span></label>
-                                        <input id="recommandation" type="text" class="form-control" required placeholder="Recommandation pour l'inscription">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Agence <span class="text-danger">*</span></label>
-                                        <select id="agence" class="form-control" required>
+<!--                <div class="tab-pane fade" id="ajouter">-->
+<!--                    <div class="panel panel-default">-->
+<!--                        <div class="panel-heading">-->
+<!--                            Ajouter un nouvel Elève-->
+<!--                        </div>-->
+<!--                        <div class="panel-body">-->
+<!--                            <form role="form" id="formulaire_save">-->
+<!--                                <div class="col-lg-6">-->
+<!--                                    <div class="form-group">-->
+<!--                                        <label>Nom <span class="text-danger">*</span></label>-->
+<!--                                        <input id="nom_save" type="text" class="form-control" placeholder="Nom" required>-->
+<!---->
+<!--                                    </div>-->
+<!--                                    <div class="form-group">-->
+<!--                                        <label>Prénom <span class="text-danger">*</span></label>-->
+<!--                                        <input id="prenom_save" type="text" class="form-control" placeholder="Prénom" required>-->
+<!--                                    </div>-->
+<!--                                    <div class="form-group">-->
+<!--                                        <label>Contact <span class="text-danger">*</span></label>-->
+<!--                                        <input id="contact_save" type="text" class="form-control" placeholder="Numéro" required>-->
+<!--                                    </div>-->
+<!--                                    <div class="form-group">-->
+<!--                                        <label>Profession</label>-->
+<!--                                        <input id="profession_save" type="text" class="form-control" placeholder="Profession" >-->
+<!--                                    </div>-->
+<!--                                    <div class="form-group">-->
+<!--                                        <label>Adresse <span class="text-danger">*</span></label>-->
+<!--                                        <input id="adresse_save" type="text" class="form-control" placeholder="Adresse" required>-->
+<!--                                    </div>-->
+<!--                                    <div class="form-group">-->
+<!--                                        <label>Date de Naissance</label>-->
+<!--                                        <input id="dob_save" type="date" class="form-control" >-->
+<!--                                    </div>-->
+<!--                                    <div class="form-group">-->
+<!--                                        <label>Lieu de Naissance</label>-->
+<!--                                        <input id="pob_save" type="text" class="form-control" >-->
+<!--                                    </div>-->
+<!--                                    <div class="form-group">-->
+<!--                                        <label>Frais d'examen <span class="text-danger">*</span></label>-->
+<!--                                        <input id="frais_examen" type="number" class="form-control" placeholder="Frais d'examen" required>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!---->
+<!--                                <div class="col-lg-6">-->
+<!--                                    <div class="form-group">-->
+<!--                                        <label>Catégorie Permis <span class="text-danger">*</span></label>-->
+<!--                                        <select id="categorie_save" class="form-control" required>-->
+<!--                                            <option  value="A">A</option>-->
+<!--                                            <option  value="B">B</option>-->
+<!--                                            <option  value="C">C</option>-->
+<!--                                            <option selected value="D">D</option>-->
+<!--                                            <option  value="E">E</option>-->
+<!--                                        </select>-->
+<!--                                    </div>-->
+<!--                                    <div class="form-group">-->
+<!--                                        <label>Forfait <span class="text-danger">*</span></label>-->
+<!--                                        <select id="forfait_save" class="form-control" required>-->
+<!--                                            <option selected  value="normal">Tarif Normal</option>-->
+<!--                                            <option  value="special">Tarif Spécial</option>-->
+<!--                                            <option  value="accelere">Tarif accéléré</option>-->
+<!--                                            <option  value="promo">Tarif Promo</option>-->
+<!--                                        </select>-->
+<!--                                    </div>-->
+<!--                                    <div class="form-group">-->
+<!--                                        <label>Solde Forfait <span class="text-danger">*</span></label>-->
+<!--                                        <input id="solde_save" type="number" class="form-control" placeholder="Solde du forfait" required>-->
+<!--                                    </div>-->
+<!--                                    <div class="form-group">-->
+<!--                                        <label>Sexe <span class="text-danger">*</span></label>-->
+<!--                                        <select id="sexe_save" class="form-control" required>-->
+<!--                                            <option selected value="masculin">masculin</option>-->
+<!--                                            <option value="feminin">feminin</option>-->
+<!--                                        </select>-->
+<!--                                    </div>-->
+<!--                                    <div class="form-group">-->
+<!--                                        <label>Recommandation <span class="text-danger">*</span></label>-->
+<!--                                        <input id="recommandation" type="text" class="form-control" required placeholder="Recommandation pour l'inscription">-->
+<!--                                    </div>-->
+<!--                                    <div class="form-group">-->
+<!--                                        <label>Agence <span class="text-danger">*</span></label>-->
+<!--                                        <select id="agence" class="form-control" required>-->
 <!--                                            --><?php
 //                                                foreach($agences as $agence){
 //                                                    if($agence->id_agence == $_SESSION['agence']){
@@ -206,34 +206,34 @@
 //                                                    }
 //                                                }
 //                                            ?>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Frais de dossier</label>
-                                        <input id="dossier" type="checkbox" >
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Montant des frais de dossier</label>
-                                        <input id="montant" type="number" class="form-control"  >
-                                    </div>
-                                    <div class="form-group">
-                                        <button type="submit" class="btn-lg btn-primary">Ajouter</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-
-                </div>
+<!--                                        </select>-->
+<!--                                    </div>-->
+<!--                                    <div class="form-group">-->
+<!--                                        <label>Frais de dossier</label>-->
+<!--                                        <input id="dossier" type="checkbox" >-->
+<!--                                    </div>-->
+<!--                                    <div class="form-group">-->
+<!--                                        <label>Montant des frais de dossier</label>-->
+<!--                                        <input id="montant" type="number" class="form-control"  >-->
+<!--                                    </div>-->
+<!--                                    <div class="form-group">-->
+<!--                                        <button type="submit" class="btn-lg btn-primary">Ajouter</button>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </form>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!---->
+<!--                </div>-->
                 <!-- Tab Liste Student -->
                 <div class="tab-pane fade in active" id="liste">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Tous les Élève en Cours
-<!--                            <a href="--><?//= $urlListeSimple ?><!--" target="_blank" class="btn btn-primary">Imprimer Liste Simple</a>-->
-<!--                            <a href="--><?//= $urlListeSolde ?><!--" target="_blank" class="btn btn-success">Scolarité Soldés</a>-->
-<!--                            <a href="--><?//= $urlListeRedevable ?><!--" target="_blank" class="btn btn-warning">Scolarité Redevables</a>-->
-<!--                            <a href="--><?//= $urlListeImpaye ?><!--" target="_blank" class="btn btn-danger">Scolarité Impayés</a>-->
+                            Tous les Élèves en Cours
+                            <a href="<?= $urlListeSimple ?>" target="_blank" class="btn btn-primary">Imprimer Liste Simple</a>
+                            <a href="<?= $urlListeSolde ?>" target="_blank" class="btn btn-success">Scolarité Soldés</a>
+                            <a href="<?= $urlListeRedevable ?>" target="_blank" class="btn btn-warning">Scolarité Redevables</a>
+                            <a href="<?= $urlListeImpaye ?>" target="_blank" class="btn btn-danger">Scolarité Impayés</a>
                             <button title="Impression" type="button" class="btn btn-info" data-toggle="modal" data-target="#print_agence">
                                 <span class="fa fa-file-pdf-o"></span>
                             </button>
@@ -263,7 +263,7 @@
                                                 <div class="col-6">
                                                     <label>Description : </label>
                                                     <input type="text" id="desc_depot" class="form-control" placeholder="Ex: dépôt permis C">
-<!--                                                    <input type="hidden" id="agence_depot" value="--><?//= $_SESSION['agence'] ?><!--">-->
+                                                    <input type="hidden" id="agence_depot" value="<?= $_SESSION['agence'] ?>">
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
@@ -296,9 +296,9 @@
                                                     <div class="col-6">
                                                         <label>Date de fin</label>
                                                         <input type="date" name="fin" class="form-control">
-<!--                                                        --><?php //if (isset( $_GET['agence'])): ?>
-<!--                                                            <input type="hidden" name="agence" value="--><?//= $_GET['agence'] ?><!--" class="form-control">-->
-<!--                                                        --><?php //endif; ?>
+                                                        <?php if (isset( $_GET['agence'])): ?>
+                                                            <input type="hidden" name="agence" value="<?= $_GET['agence'] ?>" class="form-control">
+                                                        <?php endif; ?>
                                                     </div>
                                                 </div>
 
@@ -326,63 +326,63 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-<!--                                --><?php
-//                                    foreach ($elev as $ev){
-//                                        ?>
-<!--                                        <tr>-->
-<!--                                            <td>--><?//= $ev['nom'] ?><!--</td>-->
-<!--                                            <td>--><?//= $ev['prenom'] ?><!--</td>-->
-<!--                                            <td>--><?//= $ev['matricule'] ?><!--</td>-->
-<!--                                            <td>--><?//= $ev['profession'] ?><!--</td>-->
-<!--                                            <td>--><?//= $ev['categorie'] ?><!--</td>-->
-<!--                                            <td>--><?//= $ev['agence'] ?><!--</td>-->
-<!--                                            <td>-->
-<!--                                                <input type="checkbox" class="form-group check"	id="--><?//= $ev['id_eleve'] ?><!--" >-->
-<!--                                            </td>-->
-<!--                                            <td>-->
-<!--                                                --><?php
-//                                                    if ($_SESSION['fonction'] == 'administrateur'):
-//                                                        ?>
-<!--                                                        <button title="Supprimer" type="button" name="delete" id="--><?//= $ev['id_eleve'] ?><!--" class="btn btn-danger btn-sm delete_eleve " ><i class="glyphicon glyphicon glyphicon-trash"></i></button>-->
-<!--                                                    --><?php
-//                                                    endif;
-//                                                ?>
-<!--                                                <button title="Modifier" type="button" name="update" id="--><?//= $ev['id_eleve'] ?><!--" class="btn btn-primary btn-sm update_eleve "><i class="glyphicon glyphicon-pencil"></i></button>-->
-<!--                                                <button type="button" title="Examen"  name="examen" id="'--><?//= $ev['id_eleve'] ?><!--" class="btn btn-success examen_eleve "><i class="glyphicon glyphicon-ok"></i></button>-->
-<!--                                                <button type="button" title="Paiement"  name="paiement" id="--><?//= $ev['id_eleve'] ?><!--" class="btn btn-warning paiement_eleve "><i class="glyphicon glyphicon-th-large"></i></button>-->
-<!--                                                <button type="button" title="Voir plus" name="voir_plus" id="--><?//= $ev['id_eleve'] ?><!--" class="btn btn-info detail_eleve "><i class="glyphicon glyphicon-eye-open"></i></button>-->
-<!--                                            </td>-->
-<!--                                        </tr>-->
-<!---->
-<!--                                        --><?php
-//                                    }
-//                                ?>
+                                <?php
+                                    foreach ($elev as $ev){
+                                        ?>
+                                        <tr>
+                                            <td><?= $ev['nom'] ?></td>
+                                            <td><?= $ev['prenom'] ?></td>
+                                            <td><?= $ev['matricule'] ?></td>
+                                            <td><?= $ev['profession'] ?></td>
+                                            <td><?= $ev['categorie'] ?></td>
+                                            <td><?= $ev['agence'] ?></td>
+                                            <td>
+                                                <input type="checkbox" class="form-group check"	id="<?= $ev['id_eleve'] ?>" >
+                                            </td>
+                                            <td>
+                                                <?php
+                                                    if ($_SESSION['fonction'] == 'administrateur'):
+                                                        ?>
+                                                        <button title="Supprimer" type="button" name="delete" id="<?= $ev['id_eleve'] ?>" class="btn btn-danger btn-sm delete_eleve " ><i class="glyphicon glyphicon glyphicon-trash"></i></button>
+                                                    <?php
+                                                    endif;
+                                                ?>
+                                                <button title="Modifier" type="button" name="update" id="<?= $ev['id_eleve'] ?>" class="btn btn-primary btn-sm update_eleve "><i class="glyphicon glyphicon-pencil"></i></button>
+                                                <button type="button" title="Examen"  name="examen" id="'<?= $ev['id_eleve'] ?>" class="btn btn-success examen_eleve "><i class="glyphicon glyphicon-ok"></i></button>
+                                                <button type="button" title="Paiement"  name="paiement" id="<?= $ev['id_eleve'] ?>" class="btn btn-warning paiement_eleve "><i class="glyphicon glyphicon-th-large"></i></button>
+                                                <button type="button" title="Voir plus" name="voir_plus" id="<?= $ev['id_eleve'] ?>" class="btn btn-info detail_eleve "><i class="glyphicon glyphicon-eye-open"></i></button>
+                                            </td>
+                                        </tr>
+
+                                        <?php
+                                    }
+                                ?>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
                 <!-- Tab Liste Permis Provisoire -->
-                <div class="tab-pane fade" id="listeP">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Les Elèves qui ont Obtenu le Permis Provisoire
-                            <a href="../public/pdf/elevedom.php?ind=permis" target="_blank" class="btn btn-warning">Imprimer</a>
-                        </div>
-                        <div class="panel-body">
-                            <table width="100%" class="table table-striped table-bordered table-hover" id="table_provisoire">
-                                <thead>
-                                <tr>
-                                    <th>Nom</th>
-                                    <th>Prénoms</th>
-                                    <th>Date de naissance</th>
-                                    <th>Lieu de naissance</th>
-                                    <th>Catégorie</th>
-                                    <th>Agence</th>
-                                    <th>Action</th>
-                                </tr>
-                                </thead>
-                                <tbody>
+<!--                <div class="tab-pane fade" id="listeP">-->
+<!--                    <div class="panel panel-default">-->
+<!--                        <div class="panel-heading">-->
+<!--                            Les Elèves qui ont Obtenu le Permis Provisoire-->
+<!--                            <a href="../public/pdf/elevedom.php?ind=permis" target="_blank" class="btn btn-warning">Imprimer</a>-->
+<!--                        </div>-->
+<!--                        <div class="panel-body">-->
+<!--                            <table width="100%" class="table table-striped table-bordered table-hover" id="table_provisoire">-->
+<!--                                <thead>-->
+<!--                                <tr>-->
+<!--                                    <th>Nom</th>-->
+<!--                                    <th>Prénoms</th>-->
+<!--                                    <th>Date de naissance</th>-->
+<!--                                    <th>Lieu de naissance</th>-->
+<!--                                    <th>Catégorie</th>-->
+<!--                                    <th>Agence</th>-->
+<!--                                    <th>Action</th>-->
+<!--                                </tr>-->
+<!--                                </thead>-->
+<!--                                <tbody>-->
 <!--                                --><?php
 //                                    foreach ($elevePermis as $ev){
 //                                        ?>
@@ -404,30 +404,30 @@
 <!--                                        --><?php
 //                                    }
 //                                ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+<!--                                </tbody>-->
+<!--                            </table>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
 
                 <!-- Tab Liste Date de Dépôt -->
-                <div class="tab-pane fade" id="listedepot">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Liste des dépôts
-                        </div>
-                        <div class="panel-body">
-                            <table width="100%" class="table table-striped table-bordered table-hover" id="table-depot">
-                                <thead>
-                                <tr>
-                                    <th>N°</th>
-                                    <th>Date de dépôt</th>
-                                    <th>Description</th>
-                                    <th>Nombre de participants</th>
-                                    <th>Action</th>
-                                </tr>
-                                </thead>
-                                <tbody>
+<!--                <div class="tab-pane fade" id="listedepot">-->
+<!--                    <div class="panel panel-default">-->
+<!--                        <div class="panel-heading">-->
+<!--                            Liste des dépôts-->
+<!--                        </div>-->
+<!--                        <div class="panel-body">-->
+<!--                            <table width="100%" class="table table-striped table-bordered table-hover" id="table-depot">-->
+<!--                                <thead>-->
+<!--                                <tr>-->
+<!--                                    <th>N°</th>-->
+<!--                                    <th>Date de dépôt</th>-->
+<!--                                    <th>Description</th>-->
+<!--                                    <th>Nombre de participants</th>-->
+<!--                                    <th>Action</th>-->
+<!--                                </tr>-->
+<!--                                </thead>-->
+<!--                                <tbody>-->
 <!--                                --><?php
 //                                    $i=1;
 //                                    foreach($depot as $dt){
@@ -480,35 +480,35 @@
 //                                        $i++;
 //                                    }
 //                                ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+<!--                                </tbody>-->
+<!--                            </table>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
 
                 <!-- Tab Réinscription -->
-                <div class="tab-pane fade" id="inscription">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Liste des élèves à réinscrire
-                            <a href="index.php?page=ajouter">
-                                <button class="btn btn-primary">Ajouter</button>
-                            </a>
-                        </div>
-                        <div class="panel-body">
-                            <table width="100%" class="table table-striped table-bordered table-hover" id="tables-reinscrire">
-                                <thead>
-                                <tr>
-                                    <th>Nom</th>
-                                    <th>Prénoms</th>
-                                    <th>Lieu de Naissance</th>
-                                    <th>Date de Naissance</th>
-                                    <th>Catégorie</th>
-                                    <th>Agence</th>
-                                    <th>Action</th>
-                                </tr>
-                                </thead>
-                                <tbody>
+<!--                <div class="tab-pane fade" id="inscription">-->
+<!--                    <div class="panel panel-default">-->
+<!--                        <div class="panel-heading">-->
+<!--                            Liste des élèves à réinscrire-->
+<!--                            <a href="index.php?page=ajouter">-->
+<!--                                <button class="btn btn-primary">Ajouter</button>-->
+<!--                            </a>-->
+<!--                        </div>-->
+<!--                        <div class="panel-body">-->
+<!--                            <table width="100%" class="table table-striped table-bordered table-hover" id="tables-reinscrire">-->
+<!--                                <thead>-->
+<!--                                <tr>-->
+<!--                                    <th>Nom</th>-->
+<!--                                    <th>Prénoms</th>-->
+<!--                                    <th>Lieu de Naissance</th>-->
+<!--                                    <th>Date de Naissance</th>-->
+<!--                                    <th>Catégorie</th>-->
+<!--                                    <th>Agence</th>-->
+<!--                                    <th>Action</th>-->
+<!--                                </tr>-->
+<!--                                </thead>-->
+<!--                                <tbody>-->
 <!--                                --><?php
 //                                    foreach ($elevR as $ev){
 //                                        ?>
@@ -530,11 +530,11 @@
 <!--                                        --><?php
 //                                    }
 //                                ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+<!--                                </tbody>-->
+<!--                            </table>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
 
                 <!-- Modal Reinscrire -->
                 <div class="modal fade" id="reinscrire_eleve" tabindex="-1" role="dialog" aria-labelledby="reinscrire_eleve" aria-hidden="true">
