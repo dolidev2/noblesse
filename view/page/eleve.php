@@ -12,39 +12,40 @@
         $agenceId =$_SESSION['agence'];
         $eleves = Eleve::afficherCoursAgence($_SESSION['agence']); $i=1;
         $elevePermis = Eleve::afficherStatutAgence($_SESSION['agence']); $i=1;
-        $depotUrl = "index.php?page=bordereau&agence=".$_SESSION['agence']."&date_depot=";
-        $urlListeSimple = '../public/pdf/elevedom.php?ind=cours&agence='.$_SESSION['agence'];
-        $urlListeSolde= '../public/pdf/paiementdom.php?ind=solde&agence='.$_SESSION['agence'];
-        $urlListeRedevable= '../public/pdf/paiementdom.php?ind=redevable&agence='.$_SESSION['agence'];
-        $urlListeImpaye= '../public/pdf/paiementdom.php?ind=impaye&agence='.$_SESSION['agence'];
-        $urlListePermis= '../public/pdf/elevedom.php?ind=permis&agence='.$_SESSION['agence'];
-        $depot = Bordereau::displayBordereauFromAgence($_SESSION['agence']);
-    }elseif(isset($_GET['agence'])){
-        $ag = Agence::afficherAgenceOne($_GET['agence']);
-        $agenc = $ag[0]->nom_agence;
-        $agenceId =$_GET['agence'];
-        $eleves = Eleve::afficherCoursAgence($_GET['agence']); $i=1;
-        $elevePermis = Eleve::afficherStatutAgence($_GET['agence']); $i=1;
-        $depotUrl = "index.php?page=bordereau&agence=".$_GET['agence']."&date_depot=";
-        $urlListeSimple = '../public/pdf/elevedom.php?ind=cours&agence='.$_GET['agence'];
-        $urlListeSolde= '../public/pdf/paiementdom.php?ind=solde&agence='.$_GET['agence'];
-        $urlListeRedevable= '../public/pdf/paiementdom.php?ind=redevable&agence='.$_GET['agence'];
-        $urlListeImpaye= '../public/pdf/paiementdom.php?ind=impaye&agence='.$_GET['agence'];
-        $urlListePermis= '../public/pdf/elevedom.php?ind=permis&agence='.$_GET['agence'];
-        $depot = Bordereau::displayBordereauFromAgence($_GET['agence']);
-    }
-    else{
-
-        $eleves = Eleve::afficherCours(); $i=1;
-        $elevePermis = Eleve::afficherStatut(); $i=1;
-        $depotUrl = "index.php?page=bordereau&date_depot=";
-        $urlListeSimple = '../public/pdf/elevedom.php?ind=cours';
-        $urlListeSolde= '../public/pdf/paiementdom.php?ind=solde';
-        $urlListeRedevable= '../public/pdf/paiementdom.php?ind=redevable';
-        $urlListeImpaye= '../public/pdf/paiementdom.php?ind=impaye';
-        $urlListePermis= '../public/pdf/elevedom.php?ind=permis';
+//        $depotUrl = "index.php?page=bordereau&agence=".$_SESSION['agence']."&date_depot=";
+//        $urlListeSimple = '../public/pdf/elevedom.php?ind=cours&agence='.$_SESSION['agence'];
+//        $urlListeSolde= '../public/pdf/paiementdom.php?ind=solde&agence='.$_SESSION['agence'];
+//        $urlListeRedevable= '../public/pdf/paiementdom.php?ind=redevable&agence='.$_SESSION['agence'];
+//        $urlListeImpaye= '../public/pdf/paiementdom.php?ind=impaye&agence='.$_SESSION['agence'];
+//        $urlListePermis= '../public/pdf/elevedom.php?ind=permis&agence='.$_SESSION['agence'];
         $depot = Bordereau::displayBordereauFromAgence($_SESSION['agence']);
     }
+//    elseif(isset($_GET['agence'])){
+//        $ag = Agence::afficherAgenceOne($_GET['agence']);
+//        $agenc = $ag[0]->nom_agence;
+//        $agenceId =$_GET['agence'];
+//        $eleves = Eleve::afficherCoursAgence($_GET['agence']); $i=1;
+//        $elevePermis = Eleve::afficherStatutAgence($_GET['agence']); $i=1;
+//        $depotUrl = "index.php?page=bordereau&agence=".$_GET['agence']."&date_depot=";
+//        $urlListeSimple = '../public/pdf/elevedom.php?ind=cours&agence='.$_GET['agence'];
+//        $urlListeSolde= '../public/pdf/paiementdom.php?ind=solde&agence='.$_GET['agence'];
+//        $urlListeRedevable= '../public/pdf/paiementdom.php?ind=redevable&agence='.$_GET['agence'];
+//        $urlListeImpaye= '../public/pdf/paiementdom.php?ind=impaye&agence='.$_GET['agence'];
+//        $urlListePermis= '../public/pdf/elevedom.php?ind=permis&agence='.$_GET['agence'];
+//        $depot = Bordereau::displayBordereauFromAgence($_GET['agence']);
+//    }
+//    else{
+//
+//        $eleves = Eleve::afficherCours(); $i=1;
+//        $elevePermis = Eleve::afficherStatut(); $i=1;
+//        $depotUrl = "index.php?page=bordereau&date_depot=";
+//        $urlListeSimple = '../public/pdf/elevedom.php?ind=cours';
+//        $urlListeSolde= '../public/pdf/paiementdom.php?ind=solde';
+//        $urlListeRedevable= '../public/pdf/paiementdom.php?ind=redevable';
+//        $urlListeImpaye= '../public/pdf/paiementdom.php?ind=impaye';
+//        $urlListePermis= '../public/pdf/elevedom.php?ind=permis';
+//        $depot = Bordereau::displayBordereauFromAgence($_SESSION['agence']);
+//    }
 
     $elev = Eleve::afficherCoursExpire($eleves);
     $elevR = Eleve::afficherCoursExpireReinscription($eleves);
@@ -230,10 +231,10 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             Tous les Élèves en Cours
-                            <a href="<?= $urlListeSimple ?>" target="_blank" class="btn btn-primary">Imprimer Liste Simple</a>
-                            <a href="<?= $urlListeSolde ?>" target="_blank" class="btn btn-success">Scolarité Soldés</a>
-                            <a href="<?= $urlListeRedevable ?>" target="_blank" class="btn btn-warning">Scolarité Redevables</a>
-                            <a href="<?= $urlListeImpaye ?>" target="_blank" class="btn btn-danger">Scolarité Impayés</a>
+<!--                            <a href="--><?//= $urlListeSimple ?><!--" target="_blank" class="btn btn-primary">Imprimer Liste Simple</a>-->
+<!--                            <a href="--><?//= $urlListeSolde ?><!--" target="_blank" class="btn btn-success">Scolarité Soldés</a>-->
+<!--                            <a href="--><?//= $urlListeRedevable ?><!--" target="_blank" class="btn btn-warning">Scolarité Redevables</a>-->
+<!--                            <a href="--><?//= $urlListeImpaye ?><!--" target="_blank" class="btn btn-danger">Scolarité Impayés</a>-->
                             <button title="Impression" type="button" class="btn btn-info" data-toggle="modal" data-target="#print_agence">
                                 <span class="fa fa-file-pdf-o"></span>
                             </button>
