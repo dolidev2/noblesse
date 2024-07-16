@@ -43,13 +43,9 @@
                 self::$data['DB_PASSWORD'],
                 array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION)
             );
-
             self::$pdo = $con;
-
         }
-
         return self::$pdo;
-
     }       
 
  }

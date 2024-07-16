@@ -12,10 +12,10 @@
                         $all = Eleve::countAll($_SESSION['agence']);
                         $cours = Eleve::countCours($_SESSION['agence']);
                         $permi = Eleve::countPermi($_SESSION['agence']);
-                        var_dump($all);
+
                      ?>
                     <div class="col-xs-9 text-right">
-                        <div class="huge"><?=$all[0]->nombre ; ?></div>
+                        <div class="huge"><?= var_dump($all); $all[0]->nombre ; ?></div>
                         <div>Elèves</div>
                     </div>
                 </div>

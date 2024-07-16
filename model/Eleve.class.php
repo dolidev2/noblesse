@@ -409,9 +409,9 @@ include_once "Reinscription.php";
     public static function countAll($agence)
     {
         $con = parent::getPDO();
-        $ins = $con->query('SELECT COUNT(id_eleve) as nombre FROM eleve WHERE agence="'.$agence.'" ');
+        $ins = $con->query('SELECT count(id_eleve) as nombre FROM eleve WHERE agence="'.$agence.'" ');
         $donne = $ins->fetchAll(PDO::FETCH_CLASS, 'Eleve');
-        return 10;
+        return [10,$donne,$ins,$con];
     }
 
      public static function countFromYear()
