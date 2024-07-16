@@ -49,7 +49,7 @@
 
     $elev = Eleve::afficherCoursExpire($eleves);
     $elevR = Eleve::afficherCoursExpireReinscription($eleves);
-
+    var_dump([$elev, $_SESSION]);
 
     if($_SESSION['agence'] == 1){
         ?>
