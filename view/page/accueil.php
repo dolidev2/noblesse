@@ -95,11 +95,6 @@
             </a>
         </div>
     </div>
-
-    <?php
-
-        var_dump($_SESSION['position_agence']);
-    ?>
 </div>
 <!-- DATA TABLES -->
 <!-- /.row -->
