@@ -44,12 +44,11 @@
         $urlListeRedevable= '../public/pdf/paiementdom.php?ind=redevable';
         $urlListeImpaye= '../public/pdf/paiementdom.php?ind=impaye';
         $urlListePermis= '../public/pdf/elevedom.php?ind=permis';
-//        $depot = Bordereau::displayBordereauFromAgence($_SESSION['agence']);
+        $depot = Bordereau::displayBordereauFromAgence($_SESSION['agence']);
     }
 
     $elev = Eleve::afficherCoursExpire($eleves);
     $elevR = Eleve::afficherCoursExpireReinscription($eleves);
-//    var_dump([$elev, $elevePermis]);
 
     if($_SESSION['agence'] == 1){
         ?>
