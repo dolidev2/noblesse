@@ -17,7 +17,6 @@ session_start();
 		$profession = strip_tags(htmlspecialchars(trim($_POST['profession'])));
 		$dob = strip_tags(htmlspecialchars(trim($_POST['dob'])));
 		$pob = strip_tags(htmlspecialchars(trim($_POST['pob'])));
-		$dor = strip_tags(htmlspecialchars(trim($_POST['dor'])));
 		$categorie = strip_tags(htmlspecialchars(trim($_POST['categorie'])));
 		$forfait = strip_tags(htmlspecialchars(trim($_POST['forfait'])));
 		$solde = strip_tags(htmlspecialchars(trim($_POST['solde'])));
@@ -43,12 +42,11 @@ session_start();
 			'adresse' => $adresse,
 			'agence' => $agence,
 			'id_eleve' => $id,
-			'dor' => $dor,
             'recommandation' => $recommandation,
 			'statut' => $statut);
 		    $elev = Eleve::afficherOne($id);
 
-          $desc_audit = 'Modification des informations de l\'élève '.$nom.' '.$prenom.' dont le matricule est '.$elev[0]->maticule;
+          $desc_audit = 'Modification des informations de l\'élève '.$nom.' '.$prenom.' dont le matricule est '.$elev[0]->matricule;
 
           $data_audit = array(
               'desc' => $desc_audit,
@@ -72,7 +70,4 @@ session_start();
 				swal("Erreur!", "Données vides, veuillez remplir les champs !", "error");
 			 </script>';
 	  }
-
-
-
  ?>

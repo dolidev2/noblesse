@@ -37,7 +37,7 @@
         </div>
         <div class="form-group">
             <label>Frais d'examen</label>
-            <input id="frais_examen" type="text" class="form-control" value="<?=$eleve[0]->examen; ?>" required>
+            <input id="frais_examen" type="text" class="form-control" value="<?=$eleve[0]->examen; ?>" >
         </div>
     </div>
 

@@ -518,12 +518,12 @@ include_once "Reinscription.php";
     {
         $con = parent::getPDO();
         $ins = $con->prepare('UPDATE eleve SET nom=?, prenom=?, contact=?,
-                              profession=? , adresse=?, dob=?, pob=?, dor=?, sexe=?, categorie=?,
+                              profession=? , adresse=?, dob=?, pob=?, sexe=?, categorie=?,
                               solde=?, forfait=?, statut=?, recommandation=?, agence=? WHERE id_eleve=?');
         $ins->execute(array($data['nom'], $data['prenom'], $data['contact'],
-                            $data['profession'], $data['adresse'], $data['dob'], $data['pob'], $data['dor'],
-                            $data['sexe'], $data['categorie'], $data['solde'],
-                            $data['forfait'], $data['statut'], $data['recommandation'], $data['agence'], $data['id_eleve'] ));
+                            $data['profession'], $data['adresse'], $data['dob'], $data['pob'],
+                            $data['sexe'], $data['categorie'], $data['solde'], $data['forfait'],
+                            $data['statut'], $data['recommandation'], $data['agence'], $data['id_eleve'] ));
     }
 
      public static function modifierPhoto($data = array())
