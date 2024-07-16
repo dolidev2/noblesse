@@ -7,10 +7,12 @@
                     <div class="col-xs-3">
                         <i class="fa fa-group fa-5x"></i>
                     </div>
-                    <?php 
+                    <?php
+
                         $all = Eleve::countAll($_SESSION['agence']);
                         $cours = Eleve::countCours($_SESSION['agence']);
                         $permi = Eleve::countPermi($_SESSION['agence']);
+                        var_dump($all);
                      ?>
                     <div class="col-xs-9 text-right">
                         <div class="huge"><?=$all[0]->nombre ; ?></div>

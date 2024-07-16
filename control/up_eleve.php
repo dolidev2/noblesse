@@ -56,11 +56,11 @@ session_start();
               'user' => $_SESSION['id']
           );
           Audit::register($data_audit);
-		Eleve::modifier($data);
+		  Eleve::modifier($data);
 
 
 		echo '
-		    <script language="javascript">
+		    <script >
 				swal("Réussi", "Elève Modifier avec succès", "success");
 				window.location.href = "index.php?page=eleve";
 			</script>';
@@ -68,7 +68,7 @@ session_start();
 	  else
 	  {
 	  	echo '
-		     <script language="javascript">
+		     <script>
 				swal("Erreur!", "Données vides, veuillez remplir les champs !", "error");
 			 </script>';
 	  }
