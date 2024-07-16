@@ -38,18 +38,18 @@
 
         $eleves = Eleve::afficherCours(); $i=1;
         $elevePermis = Eleve::afficherStatut(); $i=1;
-//        $depotUrl = "index.php?page=bordereau&date_depot=";
-//        $urlListeSimple = '../public/pdf/elevedom.php?ind=cours';
-//        $urlListeSolde= '../public/pdf/paiementdom.php?ind=solde';
-//        $urlListeRedevable= '../public/pdf/paiementdom.php?ind=redevable';
-//        $urlListeImpaye= '../public/pdf/paiementdom.php?ind=impaye';
-//        $urlListePermis= '../public/pdf/elevedom.php?ind=permis';
-//        $depot = Bordereau::displayBordereauFromAgence($_SESSION['agence']);
+        $depotUrl = "index.php?page=bordereau&date_depot=";
+        $urlListeSimple = '../public/pdf/elevedom.php?ind=cours';
+        $urlListeSolde= '../public/pdf/paiementdom.php?ind=solde';
+        $urlListeRedevable= '../public/pdf/paiementdom.php?ind=redevable';
+        $urlListeImpaye= '../public/pdf/paiementdom.php?ind=impaye';
+        $urlListePermis= '../public/pdf/elevedom.php?ind=permis';
+        $depot = Bordereau::displayBordereauFromAgence($_SESSION['agence']);
     }
 
     $elev = Eleve::afficherCoursExpire($eleves);
     $elevR = Eleve::afficherCoursExpireReinscription($eleves);
-    var_dump([$elev, $elevePermis]);
+//    var_dump([$elev, $elevePermis]);
 
     if($_SESSION['agence'] == 1){
         ?>
