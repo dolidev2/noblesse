@@ -98,7 +98,7 @@
 
     <?php
 
-        var_dump($all);
+        var_dump($_SESSION['agence'],$all);
     ?>
 </div>
 <!-- DATA TABLES -->
