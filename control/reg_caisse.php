@@ -9,7 +9,8 @@ session_start();
     $somme = strip_tags(htmlspecialchars(trim($_POST['somme'])));
     $desc = strip_tags(htmlspecialchars(trim($_POST['desc'])));
     $date = strip_tags(htmlspecialchars(trim($_POST['date'])));
-    
+    $agence = strip_tags(htmlspecialchars(trim($_POST['agence'])));
+
     $data = array(
       'type' => $type,
       'somme' => $somme,
@@ -17,6 +18,7 @@ session_start();
       'compte' => 'COMPTE',
       'mode' => 'ESPECE',
       'date' => $date,
+      'agence' => intval($agence),
       'eleve'=> 0);
 
     $desc_audit = $type.' ajoutée dont la somme est '.$somme.' et le motif est '.$desc;
@@ -27,7 +29,7 @@ session_start();
         'user' => $_SESSION['id']
     );
     Audit::register($data_audit);
-	  Caisse::register($data);
+    Caisse::register($data);
 
 	header('location:../view/index.php?page=caisse');
   }

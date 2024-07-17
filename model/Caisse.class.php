@@ -16,9 +16,9 @@ include_once "Paiement.class.php";
  	public static function register($data)
     {
         $con = parent::getPDO();
-        $ins = $con->prepare('INSERT INTO caisse VALUES(?,?,?,?,?,?,?,?)');
+        $ins = $con->prepare('INSERT INTO caisse VALUES(?,?,?,?,?,?,?,?,?)');
         $ins->execute(array(NULL,$data['type'], $data['somme'], $data['desc'],$data['compte'],$data['mode'],
-                        $data['date'],$data['eleve'] ));
+                        $data['date'],$data['eleve'],$data['agence'] ));
     }
 
     public static function registerRecette($data)

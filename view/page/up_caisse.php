@@ -3,6 +3,7 @@
 include_once "../model/Caisse.class.php";
 $id = $_GET['id_caisse'];
 $data = Caisse::afficherOne($id);
+var_dump($data);
 ?>
 
 <div class="btn btn-primary btn-lg"><?= $data[0]->desc_caisse ?></div>

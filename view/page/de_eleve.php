@@ -109,7 +109,6 @@
 	{
 		$som = floatval($som);
 	}
-	
 
  ?>
 
@@ -137,7 +136,8 @@
 		        <div class="form-group">
 		            <label>Type de Paiement</label>
 		            <input id="type_pai" type="text" class="form-control" required>
-		        </div>		        
+		            <input id="agence" type="hidden" value="<?= $_SESSION['agence'] ?>"  class="form-control" >
+		        </div>
 		        <div class="form-group">		            
 		            <input type="submit" class="form-control btn btn-success" value="Payer" required>
 		        </div>		        
@@ -285,10 +285,11 @@
               var id = $('#id_eleve').val(); 
               var solde =  $('#solde').val();              
               var total =  $('#total').val(); 
+              var agence =  $('#agence').val();
 
               if (parseFloat(parseFloat(total) + parseFloat(somme)) <= solde ) 
               {
-              	$.post('../control/reg_paiement.php', {somme:somme,type:type,id:id}, function(response)
+              	$.post('../control/reg_paiement.php', {somme:somme,type:type,agence:agence,id:id}, function(response)
                 {
                   $('#comment').html(response);
                      window.location.href="index.php?page=de_eleve&id_eleve="+id;
@@ -298,9 +299,7 @@
               {
               	swal("Erreur!", "Le total payé est supérieur au forfait !", "error");
               }                   
-               
-              
-           return false;         
+           return false;
 
         });
 

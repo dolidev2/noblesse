@@ -24,7 +24,7 @@
                 <div class="tab-pane fade in active" id="liste">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Listes des Toutes les Entrées et Sorties
+                            Liste des toutes les Entrées et Sorties
                             <button title="Ajouter" data-toggle="modal" data-target="#ajouter" class="btn btn-primary">Nouveau</button>
                             <button title="Ajouter_btn" data-toggle="modal" data-target="#ajouter_btn" class="btn btn-warning">Reccette</button>
                         </div>
@@ -364,7 +364,7 @@
                     <form role="form" action="../control/reg_caisse.php" method="POST">
 
                     <div class="form-group col-lg-4">
-                        <label>Date de Transaction  : </label>
+                        <label>Date de Transaction : </label>
                         <input class="form-control" type="date" name="date"/>
                     </div>
                     <div class="form-group col-lg-4">
@@ -385,6 +385,7 @@
                          <div class="form-group col-lg-4">
                              <label>Montant :  <span style="color: red">*</span></label>
                              <input class="form-control" type="number" name="somme" required />
+                             <input  type="hidden" name="agence"  value="<?= $_SESSION['agence'] ?>" />
                         </div>
                        <div class="modal-footer">
                             <input type="submit" class="btn btn-success"  name="submit" value="Valider"/>
@@ -463,6 +464,7 @@
                         <div class="form-group col-lg-4">
                             <label>Date de Transaction : </label>
                             <input class="form-control" type="date" name="date"/>
+                            <input  type="hidden" name="agence_versement" value="<?= $_SESSION['agence'] ?>"/>
                         </div>
                         <div class="form-group col-lg-4">
                             <label>Banque :  <span style="color: red">*</span></label>
@@ -553,11 +555,13 @@
         var table_caisse = $('#table_caisse').DataTable({
             "responsive":true,
             "paging":true,
+            order: [[0, 'desc']]
         });
 
         var table_versement = $('#table_versement').DataTable({
             "responsive":true,
             "paging":true,
+            order: [[0, 'desc']]
         });
 
     });

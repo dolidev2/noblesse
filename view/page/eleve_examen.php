@@ -100,7 +100,9 @@
 							        </tr>
 							    </thead>
 							    <tbody>
-					    	<?php $codes = Examen::affichertExamenEleve('code',$_GET['id_eleve']); $j=1; ?>
+					    	<?php
+                                $codes = Examen::affichertExamenEleveCode('code',$_GET['id_eleve']); $j=1;
+                            ?>
                             <?php foreach ($codes as $code) : ?>
 							      <tr>
 							        <td align="center"><?=$j?></td>
@@ -135,7 +137,8 @@
 							        </tr>
 							    </thead>
 							    <tbody>
-					    	<?php $crenaus = Examen::affichertExamenEleve('crenau',$_GET['id_eleve']); $j=1; ?>
+					    	<?php $crenaus = Examen::affichertExamenEleve('creneau',$_GET['id_eleve']); $j=1;
+                            ?>
                             <?php foreach ($crenaus as $crenau) : ?>
 							      <tr>
 							        <td align="center"><?=$j?></td>
@@ -170,7 +173,8 @@
 							        </tr>
 							    </thead>
 							    <tbody>
-					    	<?php $conduites = Examen::affichertExamenEleve('circulation',$_GET['id_eleve']); $j=1; ?>
+					    	<?php $conduites = Examen::affichertExamenEleve('conduite',$_GET['id_eleve']); $j=1;
+                            ?>
                             <?php foreach ($conduites as $conduite) : ?>
 							      <tr>
 							        <td align="center"><?=$j?></td>

@@ -11,6 +11,7 @@ if ( isset($_POST['somme']) AND isset($_POST['desc']) AND isset($_POST['mode']) 
     $mode = strip_tags(htmlspecialchars(trim($_POST['mode'])));
     $date = strip_tags(htmlspecialchars(trim($_POST['date'])));
     $compte = strip_tags(htmlspecialchars(trim($_POST['compte'])));
+    $agence = strip_tags(htmlspecialchars(trim($_POST['agence_versement'])));
 
 
     $data = array(
@@ -19,6 +20,7 @@ if ( isset($_POST['somme']) AND isset($_POST['desc']) AND isset($_POST['mode']) 
         'compte' => $compte,
         'mode' => $mode,
         'date' => $date,
+        'agence' => $agence,
         );
     $desc_audit = 'Versement de '.$somme.' effectué dont le motif est '.$desc.' dans la banque '.$compte;
 

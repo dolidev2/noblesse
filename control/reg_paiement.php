@@ -13,6 +13,7 @@ include_once '../model/Audit.class.php';
 	$somme = strip_tags(htmlspecialchars(trim($_POST['somme'])));
 	$type = strip_tags(htmlspecialchars(trim($_POST['type'])));
 	$id = strip_tags(htmlspecialchars(trim($_POST['id'])));
+	$agence = strip_tags(htmlspecialchars(trim($_POST['agence'])));
 
 	$Numb = Paiement::genererNumbRecu();
 	$Inc = (int)$Numb[0]->nombre;
@@ -27,6 +28,7 @@ include_once '../model/Audit.class.php';
 		'somme' => $somme,
 		'type' => $type,
 		'numero' => $fin,
+		'agence' => $agence,
 		'id' => $id);
 
 	$eleve = Eleve::afficherOne($id);

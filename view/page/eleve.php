@@ -348,7 +348,7 @@
                                                     endif;
                                                 ?>
                                                 <button title="Modifier" type="button" name="update" id="<?= $ev['id_eleve'] ?>" class="btn btn-primary btn-sm update_eleve "><i class="glyphicon glyphicon-pencil"></i></button>
-                                                <button type="button" title="Examen"  name="examen" id="'<?= $ev['id_eleve'] ?>" class="btn btn-success examen_eleve "><i class="glyphicon glyphicon-ok"></i></button>
+                                                <button type="button" title="Examen"  name="examen" id="<?= $ev['id_eleve'] ?>" class="btn btn-success examen_eleve "><i class="glyphicon glyphicon-ok"></i></button>
                                                 <button type="button" title="Paiement"  name="paiement" id="<?= $ev['id_eleve'] ?>" class="btn btn-warning paiement_eleve "><i class="glyphicon glyphicon-th-large"></i></button>
                                                 <button type="button" title="Voir plus" name="voir_plus" id="<?= $ev['id_eleve'] ?>" class="btn btn-info detail_eleve "><i class="glyphicon glyphicon-eye-open"></i></button>
                                             </td>
@@ -679,13 +679,12 @@
                     data:{eleve_id:eleve_id},
                     success:function(data)
                     {
-                        dataTable.ajax.reload();
-                        dataTables.ajax.reload();
+                        swal("Réussi", "Suppression effectué avec succès", "success");
                     }
                 });
 
             } else {
-                return false;
+                swal("Echec", "Suppression non effectué car élève non trouvé", "danger");
             }
         });
 

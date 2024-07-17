@@ -11,8 +11,9 @@ class Versement extends Model {
     public  static function register($data){
 
         $con = parent::getPDO();
-        $insert = $con->prepare('INSERT INTO versement VALUES(?,?,?,?,?,?)');
-        $insert->execute(array(null,$data['somme'],$data['compte'],$data['date'],$data['mode'],$data['desc']));
+        $insert = $con->prepare('INSERT INTO versement VALUES(?,?,?,?,?,?,?)');
+        $insert->execute(array(null,$data['somme'],$data['compte'],$data['date'],$data['mode']
+                                ,$data['desc'],$data['agence']));
 
         //Prepare data to insert to Caisse
         $data_caisse = array(
@@ -22,6 +23,7 @@ class Versement extends Model {
             "compte" => $data['compte'],
             "mode" => $data['mode'],
             "date" => $data['date'],
+            "agence" => $data['agence'],
             "eleve" =>0
         );
         //Insert data to Caisse

@@ -63,8 +63,8 @@ include_once "Model.class.php";
     public static function registerExamenEleve($data)
     {
         $con = parent::getPDO();
-        $ins = $con->prepare('INSERT INTO examen_eleve VALUES(?,?,?,?)');
-        $ins->execute(array(null, $data['id_eleve'], $data['id_examen'], $data['resultat'] ));
+        $ins = $con->prepare('INSERT INTO examen_eleve VALUES(?,?,?,?,?)');
+        $ins->execute(array(null, $data['id_eleve'], $data['id_examen'], $data['resultat'],null ));
     }
 
      public static function afficher()

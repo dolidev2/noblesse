@@ -32,7 +32,8 @@ include_once "Eleve.class.php";
             "compte" => "compte",
             "mode" => "ESPECE",
             "date" => $data['date_paiement'],
-            "eleve" => $data['id']
+            "eleve" => $data['id'],
+            "agence" => $data['agence']
         );
         //Insert data to Caisse
         Caisse::register($data_caisse);
