@@ -555,13 +555,11 @@
         var table_caisse = $('#table_caisse').DataTable({
             "responsive":true,
             "paging":true,
-            order: [[0, 'desc']]
         });
 
         var table_versement = $('#table_versement').DataTable({
             "responsive":true,
             "paging":true,
-            order: [[0, 'desc']]
         });
 
     });
