@@ -179,7 +179,22 @@
                                     <th>Action</th>
                                 </tr>
                                 </thead>
+                                <tbody>
+                                <?php $versement = Versement::read($_SESSION['agence']); $i=1;
+                                ?>
+                                <?php foreach ($versement as $vs) : ?>
+                                    <tr class="odd gradeX">
+                                        <td><?=$i; ?></td>
+                                        <td><?=$vs->somme; ?></td>
+                                        <td><?=$vs->desc_ver; ?></td>
+                                        <td><?=$vs->banque; ?></td>
+                                        <td><?=$vs->mode; ?></td>
+                                        <td><?=date('d/m/Y',strtotime($vs->date)); ?></td>
 
+                                    </tr>
+                                    <?php $i++; ?>
+                                <?php endforeach; ?>
+                                </tbody>
                             </table>
                         </div>
                     </div>
