@@ -179,64 +179,123 @@
                                     <th>Action</th>
                                 </tr>
                                 </thead>
-                                <tbody>
-                                <?php $versement = Versement::read($_SESSION['agence']); $i=1; ?>
-                                <?php foreach ($versement as $vs) : ?>
-                                    <tr class="odd gradeX">
-                                        <td><?=$i; ?></td>
-                                        <td><?=$vs->somme; ?></td>
-                                        <td><?=$vs->desc_ver; ?></td>
-                                        <td><?=$vs->banque; ?></td>
-                                        <td><?=$vs->mode; ?></td>
-                                        <td><?=date('d/m/Y',strtotime($vs->date)); ?></td>
-                                        <td class="center">
-                                            <?php if ($_SESSION['fonction'] == 'administrateur') {  ?>
-                                            <a title="Modifier" class="btn btn-primary" href="index.php?page=de_versement&id_versement=<?= $vs->id_ver ?>">
-                                                <span class="fa fa-pencil"></span>
-                                            </a>
-                                                <button title="Supprimer" type="button" class="btn btn-danger" data-toggle="modal" data-target="<?='#modal_ver'.$i?>">
-                                                    <span class="fa fa-trash"></span>
-                                                </button>
-                                            <?php } ?>
-                                            <!-- Modal -->
-                                            <div class="modal fade" id="<?='modal_ver'.$i;?>" tabindex="-1" role="dialog" aria-labelledby="<?='#modal_ver'.$i;?>" aria-hidden="true">
-                                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="<?='#modal_ver'.$i;?>">
-                                                            </h5>
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                        </div>
-                                                        <form method="post" action="../control/del_versement.php">
-                                                            <div class="modal-body">
-                                                                <input type="hidden" name="id_ver" value="<?=$vs->id_ver?>">
-                                                                <button class="btn btn-danger">
-                                                                    <h3>
-                                                                        Voulez vous vraiment supprimer cette Transaction ?
-                                                                    </h3>
-                                                                </button>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">NON</button>
-                                                                <button type="submit" name="submit" class="btn btn-primary">OUI</button>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <?php $i++; ?>
-                                <?php endforeach; ?>
-                                </tbody>
+
                             </table>
                         </div>
                     </div>
                 </div>
 
+                <!-- Tab Fond de caisse -->
+                <div class="tab-pane fade" id="fond">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                Cloture du fond de la caisse
+                                <button title="Ajouter" data-toggle="modal" data-target="#ajouter_btn" class="btn btn-success">Ajouter</button>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <ul class="nav nav-tabs">
+                                        <li class="active"><a href="#fond_ajouter" data-toggle="tab"><h4>Imprimer</h4></a></li>
+                                        <li><a href="#fond_consulter" data-toggle="tab"><h4>Consulter</h4></a></li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <!-- Ajouter fond decaisse-->
+                                        <div class="tab-pane fade in active" id="fond_ajouter">
+                                            <div class="panel panel-default">
+                                                <form method="post" action="../public/pdf/fond_caisse.php">
+                                                    <div class="modal-body">
+                                                        <div class="row">
+                                                        <div class="col-6">
+                                                            <label>Date de debut</label>
+                                                            <input type="date" name="dt_debut" class="form-control">
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <label>Date de fin</label>
+                                                            <input type="date" name="dt_fin" class="form-control">
+                                                        </div>
+                                                        </div>
 
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="submit" name="submit" class="btn btn-primary">Valider</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+
+                                        <!-- Consulter fond de caisse -->
+                                        <div class="tab-pane fade" id="fond_consulter">
+                                            <div class="panel panel-default">
+                                                <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                                    <thead>
+                                                        <tr>
+                                                            <td>Date</td>
+                                                            <td>Somme</td>
+                                                            <td>Action</td>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php
+                                                            $recettes = Caisse::afficherRecette($_SESSION['agence']);
+                                                            if(isset($recettes) && !empty($recettes)){
+                                                                foreach( $recettes as $recette)
+                                                                {
+                                                                    ?>
+                                                                    <tr>
+                                                                        <td><?= date("d/m/Y",strtotime($recette->date_recette))  ?></td>
+                                                                        <td><?= $recette->somme_recette ?></td>
+                                                                        <td>
+                                                                            <?php if ($_SESSION['fonction'] == 'administrateur') {  ?>
+                                                                                <a title="Modifier" class="btn btn-primary" href="index.php?page=recette_modifier&recette=<?= $recette->id_recette ?>">
+                                                                                    <span class="fa fa-pencil"></span>
+                                                                                </a>
+                                                                                <button title="Supprimer" type="button" class="btn btn-danger" data-toggle="modal" data-target="<?='#modal_fond'.$recette->id_recette?>">
+                                                                                    <span class="fa fa-trash"></span>
+                                                                                </button>
+                                                                            <?php } ?>
+                                                                            <!-- Modal -->
+                                                                            <div class="modal fade" id="<?='modal_fond'.$recette->id_recette;?>" tabindex="-1" role="dialog" aria-labelledby="<?='#modal_fond'.$recette->id_recette;?>" aria-hidden="true">
+                                                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                                    <div class="modal-content">
+                                                                                        <div class="modal-header">
+                                                                                            <h5 class="modal-title" id="<?='#modal_fond'.$recette->id_recette;?>">
+                                                                                            </h5>
+                                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                                <span aria-hidden="true">&times;</span>
+                                                                                            </button>
+                                                                                        </div>
+                                                                                        <form method="post" action="../control/del_recette.php">
+                                                                                            <div class="modal-body">
+                                                                                                <input type="hidden" name="recette_sup" value="<?= $recette->id_recette; ?>">
+                                                                                                <button class="btn btn-danger">
+                                                                                                    <h3>
+                                                                                                        Voulez vous vraiment supprimer cette Recette ?
+                                                                                                    </h3>
+                                                                                                </button>
+                                                                                            </div>
+                                                                                            <div class="modal-footer">
+                                                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">NON</button>
+                                                                                                <button type="submit" name="submit" class="btn btn-primary">OUI</button>
+                                                                                            </div>
+                                                                                        </form>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <?php
+                                                                }
+                                                            }
+                                                        ?>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
             </div>
     </div>
 </div>
